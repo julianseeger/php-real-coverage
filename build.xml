@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PHP_RealCoverage" default="test">
+    <target name="phpcs" description="Find coding standard violations using PHP_CodeSniffer">
+        <exec executable="phpcs">
+            <arg value="--standard=PSR2" />
+            <arg value="--extensions=php" />
+            <arg path="src" />
+            <arg path="tests" />
+        </exec>
+    </target>
+
+    <target name="test">
+        <phpunit/>
+    </target>
+</project>
+

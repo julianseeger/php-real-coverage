@@ -1,0 +1,22 @@
+{
+  "name": "julianseeger/php-real-coverage",
+  "description": "Calculate the real coverage based on an existing php-code-coverage report",
+  "minimum-stability": "stable",
+  "license": "GPL v2",
+  "authors": [
+    {
+      "name": "Julian Seeger",
+      "email": "seeger.julian@gmail.com"
+    }
+  ],
+  "require": {
+    "phpunit/phpunit": "<4"
+  },
+  "require-dev": {
+    "phing/phing": "*",
+    "squizlabs/php_codesniffer": "*"
+  },
+  "autoload": {
+    "psr-4": {"PHPRealCoverage\\": "src/PHPRealCoverage/"}
+  }
+}
