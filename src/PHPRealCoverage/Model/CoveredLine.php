@@ -10,6 +10,7 @@ class CoveredLine
     private $method = false;
     private $final = false;
     private $methodName;
+    private $neccessary = true;
 
     public function __construct($content)
     {
@@ -55,5 +56,16 @@ class CoveredLine
     public function setMethodName($methodName)
     {
         $this->methodName = $methodName;
+    }
+
+    public function __toString()
+    {
+        $comment = $this->neccessary ? '' : '//';
+        return $comment . $this->content;
+    }
+
+    public function setNeccessary($neccessary)
+    {
+        $this->neccessary = $neccessary;
     }
 }

@@ -41,4 +41,15 @@ class CoveredClass
     {
         return $this->lines;
     }
+
+    public function __toString()
+    {
+        $strings = array_map(
+            function ($line) {
+                return (string)$line;
+            },
+            $this->lines
+        );
+        return join("\n", $strings);
+    }
 }
