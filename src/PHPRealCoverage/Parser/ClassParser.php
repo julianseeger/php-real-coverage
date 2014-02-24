@@ -8,6 +8,7 @@ use PHPRealCoverage\Model\CoveredLine;
 class ClassParser
 {
     const CLASSNAME_PATTERN = '/(^|\n)[^*\/\n]*class\s+([^\s]+)[\s{\n]+/Usi';
+    const METHOD_PATTERN = '/\s*(public?|private?|protected?)\s*(static)?\s*(final)?\s*function\s+(\w+?)/Usi';
 
     /**
      * @var string
@@ -47,6 +48,17 @@ class ClassParser
     public function parseLine($input)
     {
         $line = new CoveredLine($input);
+        $this->detectMethod($input, $line);
         return $line;
+    }
+
+    private function detectMethod($input, CoveredLine $line)
+    {
+        $match = preg_match(self::METHOD_PATTERN, $input, $matches);
+        if (!$match) {
+            return;
+        }
+
+        $line->setMethod(true);
     }
 }

@@ -69,4 +69,26 @@ class ClassParserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($input, $line->getContent());
     }
+
+    public function parseLineDetectsMethodsDataProvider()
+    {
+        return array(
+            array("", false),
+            array("public function someMethod()", true),
+            array("private function someNonPSRMethod(){", true),
+            array(" protected function someSpaces() { ", true),
+            array("public static final function someOverkill()", true)
+        );
+    }
+
+    /**
+     * @dataProvider parseLineDetectsMethodsDataProvider
+     * @param $input
+     * @param $method
+     */
+    public function testParseLineDetectsMethods($input, $method)
+    {
+        $line = $this->parser->parseLine($input);
+        $this->assertEquals($method, $line->isMethod());
+    }
 }
