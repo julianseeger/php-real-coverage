@@ -10,7 +10,7 @@ class SampleClass
         return false;
     }
 
-    public final function someFinalFunction()
+    final public function someFinalFunction()
     {
         return "this content is final";
     }

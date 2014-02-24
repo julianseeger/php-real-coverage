@@ -77,7 +77,7 @@ class ClassParserTest extends \PHPUnit_Framework_TestCase
             array("public function someMethod()", true, "someMethod"),
             array("private function someNonPSRMethod(){", true, "someNonPSRMethod"),
             array(" protected function someSpaces() { ", true, "someSpaces"),
-            array("public static final function someOverkill()", true, "someOverkill", true)
+            array("final public static function someOverkill()", true, "someOverkill", true)
         );
     }
 
