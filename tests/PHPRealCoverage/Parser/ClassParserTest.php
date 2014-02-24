@@ -70,25 +70,52 @@ class ClassParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($input, $line->getContent());
     }
 
-    public function parseLineDetectsMethodsDataProvider()
+    public function parseLineDataProvider()
     {
         return array(
             array("", false),
-            array("public function someMethod()", true),
-            array("private function someNonPSRMethod(){", true),
-            array(" protected function someSpaces() { ", true),
-            array("public static final function someOverkill()", true)
+            array("public function someMethod()", true, "someMethod"),
+            array("private function someNonPSRMethod(){", true, "someNonPSRMethod"),
+            array(" protected function someSpaces() { ", true, "someSpaces"),
+            array("public static final function someOverkill()", true, "someOverkill", true)
         );
     }
 
     /**
-     * @dataProvider parseLineDetectsMethodsDataProvider
+     * @dataProvider parseLineDataProvider
      * @param $input
      * @param $method
+     * @param $isMethod
+     * @param $isFinal
      */
-    public function testParseLineDetectsMethods($input, $method)
+    public function testParseLineDetectsMethods($input, $isMethod, $method = "", $isFinal = false)
     {
         $line = $this->parser->parseLine($input);
-        $this->assertEquals($method, $line->isMethod());
+        $this->assertEquals($isMethod, $line->isMethod());
+    }
+
+    /**
+     * @dataProvider parseLineDataProvider
+     * @param $input
+     * @param $method
+     * @param $isMethod
+     * @param $isFinal
+     */
+    public function testParseLineDetectsFinals($input, $isMethod, $method = "", $isFinal = false)
+    {
+        $line = $this->parser->parseLine($input);
+        $this->assertEquals($isFinal, $line->isFinal());
+    }
+
+    /**
+     * @dataProvider parseLineDataProvider
+     * @param $input
+     * @param $isMethod
+     * @param string $method
+     */
+    public function testParseLineDetectsMethodName($input, $isMethod, $method = "")
+    {
+        $line = $this->parser->parseLine($input);
+        $this->assertEquals($method, $line->getMethodName());
     }
 }

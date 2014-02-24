@@ -60,5 +60,7 @@ class ClassParser
         }
 
         $line->setMethod(true);
+        $line->setFinal($matches[3] === "final");
+        $line->setMethodName($matches[4]);
     }
 }
