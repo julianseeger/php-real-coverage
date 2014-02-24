@@ -4,3 +4,11 @@ php-real-coverage
 =================
 
 Calculates the real coverage from an existing PHPUnit/CodeCoverage report
+
+quickstart
+==========
+
+```
+composer install --prefer-dist --dev
+./vendor/bin/phpunit
+```
