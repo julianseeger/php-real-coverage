@@ -118,4 +118,18 @@ class ClassParserTest extends \PHPUnit_Framework_TestCase
         $line = $this->parser->parseLine($input);
         $this->assertEquals($method, $line->getMethodName());
     }
+
+    public function testParserAsComponent()
+    {
+        $class = $this->parser->parse();
+        $lines = $class->getLines();
+        $this->assertEquals(18, count($lines));
+
+        $this->assertEquals("SampleClass", $class->getName());
+        $this->assertEquals("class SampleClass", $lines[5]->getContent());
+        $this->assertTrue($lines[7]->isMethod());
+        $this->assertTrue($lines[13]->isMethod());
+        $this->assertFalse($lines[7]->isFinal());
+        $this->assertTrue($lines[13]->isFinal());
+    }
 }

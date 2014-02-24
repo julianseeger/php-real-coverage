@@ -32,6 +32,14 @@ class ClassParser
 
         $class = new CoveredClass();
         $class->setName($this->parseName($content));
+
+        $lines = explode("\n", $content);
+        $lineNumber = 1;
+        foreach ($lines as $lineAsString) {
+            $line = $this->parseLine($lineAsString);
+            $class->addLine($lineNumber++, $line);
+        }
+
         return $class;
     }
 
