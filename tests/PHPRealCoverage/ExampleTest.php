@@ -11,4 +11,4 @@ class ExampleTest extends PHPUnit_Framework_TestCase
         $sut = new Example();
         $this->assertTrue($sut->returnsTrue());
     }
-} 
+}

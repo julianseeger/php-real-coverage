@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="PHP_RealCoverage" default="test">
+<project name="PHP_RealCoverage" default="build">
     <target name="phpcs" description="Find coding standard violations using PHP_CodeSniffer">
-        <exec executable="phpcs">
+        <exec executable="vendor/bin/phpcs" checkreturn="true" passthru="true">
             <arg value="--standard=PSR2" />
             <arg value="--extensions=php" />
             <arg path="src" />
@@ -10,7 +10,12 @@
     </target>
 
     <target name="test">
-        <phpunit/>
+        <exec executable="vendor/bin/phpunit" checkreturn="true" passthru="true"/>
+    </target>
+
+    <target name="build">
+        <phingcall target="phpcs"/>
+        <phingcall target="test"/>
     </target>
 </project>
 

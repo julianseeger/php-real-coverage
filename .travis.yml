@@ -6,3 +6,6 @@ php:
 
 before_script:
   - composer install --prefer-dist --optimize-autoloader
+
+command:
+  - vendor/bin/phing phpcs
