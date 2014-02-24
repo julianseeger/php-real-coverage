@@ -16,6 +16,10 @@
     "phing/phing": "*",
     "squizlabs/php_codesniffer": "*"
   },
+  "suggest": {
+    "phpunit/php-code-coverage": "*",
+    "ext-xdebug": ">=2.1"
+  },
   "autoload": {
     "psr-4": {"PHPRealCoverage\\": "src/PHPRealCoverage/"}
   }
