@@ -8,14 +8,10 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
     {
         $this->loadBaseClass('SomeBaseClass');
 
-        $namespace = 'PHPRealCoverage\Proxy';
-        $className = 'SomeBaseClass';
-        $parentClass = '\PHPRealCoverage\Proxy\SomeBaseClass_original';
-
         $proxyBuilder = new ProxyBuilder();
-        $proxyBuilder->setNamespace($namespace);
-        $proxyBuilder->setClassName($className);
-        $proxyBuilder->setParentClass($parentClass);
+        $proxyBuilder->setNamespace('PHPRealCoverage\Proxy');
+        $proxyBuilder->setClassName('SomeBaseClass');
+        $proxyBuilder->setParentClass('\PHPRealCoverage\Proxy\SomeBaseClass_original');
         $proxyBuilder->addMethod('returnTrue');
         $proxyBuilder->loadProxy();
 
