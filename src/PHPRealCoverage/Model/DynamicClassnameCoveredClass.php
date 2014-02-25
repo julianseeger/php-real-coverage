@@ -2,7 +2,9 @@
 
 namespace PHPRealCoverage\Model;
 
-class DynamicClassnameCoveredClass extends CoveredClass
+use PHPRealCoverage\Proxy\ClassMetadata;
+
+class DynamicClassnameCoveredClass extends CoveredClass implements ClassMetadata
 {
     /**
      * @var DynamicClassnameCoveredLine

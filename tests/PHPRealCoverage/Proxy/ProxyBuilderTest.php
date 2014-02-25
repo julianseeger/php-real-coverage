@@ -2,6 +2,8 @@
 
 namespace PHPRealCoverage\Proxy;
 
+use PHPRealCoverage\Model\CoveredLine;
+
 class ProxyBuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function testProxyCallsDifferentClasses()
@@ -48,5 +50,23 @@ class ProxyBuilderTest extends \PHPUnit_Framework_TestCase
 
         $instance = new SomeClassWithConstructorArguments('passedByConstructor');
         $this->assertEquals('passedByConstructor', $instance->getSomeParameter());
+    }
+
+    public function testGetMethodWithInlineContent()
+    {
+        $builder = new ProxyBuilder();
+        $method = "doSomething";
+
+        $this->assertEquals(
+            "
+            public function doSomething()
+            {
+                \$this->__PROXYcheckInstance();
+                \$reflectionMethod = new \\ReflectionMethod(get_class(\$this->instance), \"doSomething\");
+                return \$reflectionMethod->invokeArgs(\$this->instance, func_get_args());
+            }
+            ",
+            $builder->getProxyMethod($method)
+        );
     }
 }

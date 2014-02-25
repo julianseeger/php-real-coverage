@@ -15,37 +15,13 @@ class ClassParser
     const METHOD_PATTERN = '/\s*(final)?\s*(public?|private?|protected?)\s*(static)?\s*function\s+(\w+?)/Usi';
 
     /**
-     * @var string
-     */
-    private $filename;
-
-    /**
-     * @param string $filename
-     */
-    public function __construct($filename)
-    {
-        $this->filename = $filename;
-    }
-
-    /**
      * @return CoveredClass
      */
-    public function parse()
+    public function parse($filename)
     {
-        $content = file_get_contents($this->filename);
+        $content = file_get_contents($filename);
 
-        $class = new DynamicClassnameCoveredClass();
-        $class->setName($this->parseName($content));
-        $class->setNamespace($this->parseNamespace($content));
-
-        $lines = explode("\n", $content);
-        $lineNumber = 1;
-        foreach ($lines as $lineAsString) {
-            $line = $this->parseLine($lineAsString);
-            $class->addLine($lineNumber++, $line);
-        }
-
-        return $class;
+        return $this->parseString($content);
     }
 
     public function parseName($content)
@@ -66,7 +42,7 @@ class ClassParser
         return $line;
     }
 
-    private function detectMethod($input, CoveredLine $line)
+    public function detectMethod($input, CoveredLine $line)
     {
         $match = preg_match(self::METHOD_PATTERN, $input, $matches);
         if (!$match) {
@@ -92,5 +68,25 @@ class ClassParser
     {
         preg_match(self::NAMESPACE_PATTERN, $content, $matches);
         return $matches[1];
+    }
+
+    /**
+     * @param $content
+     * @return DynamicClassnameCoveredClass
+     */
+    public function parseString($content)
+    {
+        $class = new DynamicClassnameCoveredClass();
+        $class->setName($this->parseName($content));
+        $class->setNamespace($this->parseNamespace($content));
+
+        $lines = explode("\n", $content);
+        $lineNumber = 1;
+        foreach ($lines as $lineAsString) {
+            $line = $this->parseLine($lineAsString);
+            $class->addLine($lineNumber++, $line);
+        }
+
+        return $class;
     }
 }

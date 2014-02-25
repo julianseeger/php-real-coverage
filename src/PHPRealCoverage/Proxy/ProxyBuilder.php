@@ -2,6 +2,8 @@
 
 namespace PHPRealCoverage\Proxy;
 
+use PHPRealCoverage\Model\CoveredLine;
+
 class ProxyBuilder
 {
     private $namespace;
@@ -42,7 +44,7 @@ class ProxyBuilder
     {
         $proxyContent = $this->getProxyHeader();
         foreach ($this->methods as $method) {
-            $proxyContent = $this->getProxyMethod($method, $proxyContent);
+            $proxyContent .= $this->getProxyMethod($method);
         }
         $proxyContent = $this->getProxyFooter($proxyContent);
 
@@ -104,9 +106,9 @@ class ProxyBuilder
      * @param $proxyContent
      * @return string
      */
-    private function getProxyMethod($method, $proxyContent)
+    public function getProxyMethod($method)
     {
-        $proxyContent .= "
+        return "
             public function $method()
             {
                 \$this->__PROXYcheckInstance();
@@ -114,6 +116,5 @@ class ProxyBuilder
                 return \$reflectionMethod->invokeArgs(\$this->instance, func_get_args());
             }
             ";
-        return $proxyContent;
     }
 }

@@ -11,18 +11,25 @@ class ClassParserTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->parser = new ClassParser(__DIR__ . '/SampleClass.php');
+        $this->parser = new ClassParser();
     }
 
     public function testParse()
     {
-        $parsedClass = $this->parser->parse();
+        $parsedClass = $this->parser->parse(__DIR__ . '/SampleClass.php');
+        $this->assertEquals("SampleClass", $parsedClass->getName());
+    }
+
+    public function testParseString()
+    {
+        $content = file_get_contents(__DIR__ . '/SampleClass.php');
+        $parsedClass = $this->parser->parseString($content);
         $this->assertEquals("SampleClass", $parsedClass->getName());
     }
 
     public function testParserDetectsNamespace()
     {
-        $class = $this->parser->parse();
+        $class = $this->parser->parse(__DIR__ . '/SampleClass.php');
         $this->assertEquals("PHPRealCoverage\\Parser", $class->getNamespace());
     }
 
@@ -150,7 +157,7 @@ class ClassParserTest extends \PHPUnit_Framework_TestCase
 
     public function testParserAsComponent()
     {
-        $class = $this->parser->parse();
+        $class = $this->parser->parse(__DIR__ . '/SampleClass.php');
         $lines = $class->getLines();
         $this->assertEquals(18, count($lines));
 
@@ -165,7 +172,7 @@ class ClassParserTest extends \PHPUnit_Framework_TestCase
 
     public function testParserAsComponentReturnsDynamicComponents()
     {
-        $class = $this->parser->parse();
+        $class = $this->parser->parse(__DIR__ . '/SampleClass.php');
         $lines = $class->getLines();
         $classLine = $lines[5];
         $this->assertInstanceOf('PHPRealCoverage\Model\DynamicClassnameCoveredLine', $classLine);
