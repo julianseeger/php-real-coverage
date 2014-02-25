@@ -26,4 +26,6 @@ interface Line
     public function __toString();
 
     public function setNeccessary($neccessary);
+
+    public function isNeccessary();
 }

@@ -78,5 +78,10 @@ class DynamicClassnameCoveredLine implements Line
     {
         return str_replace($this->line->getClassName(), $this->className, $__toString);
     }
+
+    public function isNeccessary()
+    {
+        return $this->line->isNeccessary();
+    }
 }
  

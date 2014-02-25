@@ -70,6 +70,11 @@ class CoveredLine implements Line
         $this->neccessary = $neccessary;
     }
 
+    public function isNeccessary()
+    {
+        return $this->neccessary;
+    }
+
     public function getFilteredContent()
     {
         $content = $this->getContent();

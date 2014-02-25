@@ -14,4 +14,24 @@ class DynamicClassnameCoveredLineTest extends \PHPUnit_Framework_TestCase
         $line->setClassName('ClassB');
         $this->assertEquals('class ClassB{', (string)$line);
     }
+
+    public function testInstanceServesAsProxy()
+    {
+        $line = new CoveredLine('content');
+        $line->setClassName('someclass');
+        $line->setMethodName('somemethod');
+        $line->setClass(true);
+        $line->setMethod(true);
+        $line->setNeccessary(false);
+        $line->setFinal(true);
+
+        $sut = new DynamicClassnameCoveredLine($line);
+        $this->assertEquals('content', $sut->getContent());
+        $this->assertEquals('//content', $sut->getFilteredContent());
+        $this->assertEquals('somemethod', $sut->getMethodName());
+        $this->assertTrue($sut->isClass());
+        $this->assertTrue($sut->isMethod());
+        $this->assertTrue($sut->isFinal());
+        $this->assertFalse($sut->isNeccessary());
+    }
 }
