@@ -60,12 +60,24 @@ class CoveredLine
 
     public function __toString()
     {
-        $comment = $this->neccessary ? '' : '//';
-        return $comment . $this->content;
+        return $this->getFilteredContent();
     }
 
     public function setNeccessary($neccessary)
     {
         $this->neccessary = $neccessary;
+    }
+
+    public function getFilteredContent()
+    {
+        $content = $this->getContent();
+        if (!$this->neccessary) {
+            $content = '//' . $content;
+        }
+
+        if (!$this->isMethod()) {
+            return $content;
+        }
+        return str_replace('final ', '', $content);
     }
 }
