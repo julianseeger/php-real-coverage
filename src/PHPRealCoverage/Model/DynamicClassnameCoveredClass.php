@@ -25,5 +25,4 @@ class DynamicClassnameCoveredClass extends CoveredClass
         }
         parent::addLine($lineNumber, $line);
     }
-
 }

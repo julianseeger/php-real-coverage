@@ -13,7 +13,7 @@ class DynamicClassnameCoveredLine implements Line
      */
     private $className;
 
-    function __construct(Line $line)
+    public function __construct(Line $line)
     {
         $this->line = $line;
     }
@@ -84,4 +84,3 @@ class DynamicClassnameCoveredLine implements Line
         return $this->line->isNeccessary();
     }
 }
- 

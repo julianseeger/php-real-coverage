@@ -4,6 +4,8 @@ namespace PHPRealCoverage\Parser;
 
 use PHPRealCoverage\Model\CoveredClass;
 use PHPRealCoverage\Model\CoveredLine;
+use PHPRealCoverage\Model\DynamicClassnameCoveredClass;
+use PHPRealCoverage\Model\Line;
 
 class ClassParser
 {
@@ -32,7 +34,7 @@ class ClassParser
     {
         $content = file_get_contents($this->filename);
 
-        $class = new CoveredClass();
+        $class = new DynamicClassnameCoveredClass();
         $class->setName($this->parseName($content));
         $class->setNamespace($this->parseNamespace($content));
 
@@ -78,12 +80,16 @@ class ClassParser
 
     private function detectClass($input, CoveredLine $line)
     {
-        $line->setClass($this->isClass($input));
+
+        $line->setClass((bool)preg_match(self::CLASSLINE_PATTERN, $input, $matches));
+
+        if ($line->isClass()) {
+            $line->setClassName($matches[1]);
+        }
     }
 
     private function isClass($input)
     {
-        return (bool)preg_match(self::CLASSLINE_PATTERN, $input);
     }
 
     private function parseNamespace($content)

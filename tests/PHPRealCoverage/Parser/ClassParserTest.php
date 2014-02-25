@@ -79,11 +79,11 @@ class ClassParserTest extends \PHPUnit_Framework_TestCase
     public function parseLineDetectsClassDataProvider()
     {
         return array(
-            array('nada', false),
-            array('class someclass', true),
-            array(' class someclass ', true),
-            array('* class something', false),
-            array('class someclass{', true)
+            array('nada', false, null),
+            array('class someclass', true, 'someclass'),
+            array(' class someclass ', true, 'someclass'),
+            array('* class something', false, null),
+            array('class someclass{', true, 'someclass')
         );
     }
 
@@ -92,10 +92,11 @@ class ClassParserTest extends \PHPUnit_Framework_TestCase
      * @param $input
      * @param $isClass
      */
-    public function testParseLineDetectsClass($input, $isClass)
+    public function testParseLineDetectsClass($input, $isClass, $className)
     {
         $line = $this->parser->parseLine($input);
         $this->assertEquals($isClass, $line->isClass());
+        $this->assertEquals($className, $line->getClassName());
     }
 
     public function parseLineDataProvider()
@@ -160,5 +161,16 @@ class ClassParserTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($lines[13]->isMethod());
         $this->assertFalse($lines[7]->isFinal());
         $this->assertTrue($lines[13]->isFinal());
+    }
+
+    public function testParserAsComponentReturnsDynamicComponents()
+    {
+        $class = $this->parser->parse();
+        $lines = $class->getLines();
+        $classLine = $lines[5];
+        $this->assertInstanceOf('PHPRealCoverage\Model\DynamicClassnameCoveredLine', $classLine);
+
+        $class->setName('Replacement');
+        $this->assertEquals('class Replacement', (string)$classLine);
     }
 }
