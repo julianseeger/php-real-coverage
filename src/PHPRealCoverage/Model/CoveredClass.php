@@ -12,7 +12,7 @@ class CoveredClass
     private $name;
 
     /**
-     * @var CoveredLine[]
+     * @var Line[]
      */
     private $lines = array();
     private $namespace;
@@ -33,7 +33,7 @@ class CoveredClass
         return $this->name;
     }
 
-    public function addLine($lineNumber, CoveredLine $line)
+    public function addLine($lineNumber, Line $line)
     {
         $this->lines[$lineNumber] = $line;
     }

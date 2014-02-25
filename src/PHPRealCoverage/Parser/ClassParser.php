@@ -54,7 +54,7 @@ class ClassParser
 
     /**
      * @param $input
-     * @return CoveredLine
+     * @return Line
      */
     public function parseLine($input)
     {

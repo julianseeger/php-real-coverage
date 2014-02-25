@@ -4,7 +4,7 @@
 namespace PHPRealCoverage\Model;
 
 
-class CoveredLine
+class CoveredLine implements Line
 {
     private $content;
     private $method = false;
@@ -12,6 +12,7 @@ class CoveredLine
     private $methodName;
     private $neccessary = true;
     private $class = false;
+    private $className;
 
     public function __construct($content)
     {
@@ -87,8 +88,18 @@ class CoveredLine
         return $this->class;
     }
 
-    public function setClass($class)
+    public function setClass($isClass)
     {
-        $this->class = $class;
+        $this->class = $isClass;
+    }
+
+    public function getClassName()
+    {
+        return $this->className;
+    }
+
+    public function setClassName($className)
+    {
+        $this->className = $className;
     }
 }
