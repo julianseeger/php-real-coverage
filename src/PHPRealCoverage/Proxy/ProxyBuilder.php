@@ -38,7 +38,7 @@ class ProxyBuilder
         $this->methods[] = $method;
     }
 
-    public function getProxy()
+    public function loadProxy()
     {
         $proxyContent = $this->getProxyHeader();
         foreach ($this->methods as $method) {
@@ -47,8 +47,6 @@ class ProxyBuilder
         $proxyContent = $this->getProxyFooter($proxyContent);
 
         eval($proxyContent);
-        $proxyClass = $this->namespace . "\\" . $this->className;
-        return new $proxyClass();
     }
 
     /**
@@ -59,17 +57,32 @@ class ProxyBuilder
         $proxyContent = "
         namespace $this->namespace;
         class $this->className extends $this->parentClass {
+            private static \$instanceClass;
             private \$instance;
 
             public function __construct()
             {
-                \$instanceClass = \"$this->parentClass\";
+                \$parentClassName = \"$this->parentClass\";
+                self::\$instanceClass = get_class(new \$parentClassName());
+                \$this->createInstance();
+            }
+
+            public function createInstance()
+            {
+                \$instanceClass = self::\$instanceClass;
                 \$this->instance = new \$instanceClass();
             }
 
-            public function setInstance(\$instance)
+            public static function setInstanceClass(\$instanceClass)
             {
-                \$this->instance = \$instance;
+                self::\$instanceClass = \$instanceClass;
+            }
+
+            public function checkInstance()
+            {
+                if (get_class(\$this->instance) !== self::\$instanceClass) {
+                    \$this->instance = new self::\$instanceClass();
+                }
             }
         ";
         return $proxyContent;
@@ -93,7 +106,9 @@ class ProxyBuilder
     private function getProxyMethod($method, $proxyContent)
     {
         $proxyContent .= "
-            public function $method() {
+            public function $method()
+            {
+                \$this->checkInstance();
                 \$reflectionMethod = new \\ReflectionMethod(get_class(\$this->instance), \"$method\");
                 return \$reflectionMethod->invokeArgs(\$this->instance, func_get_args());
             }

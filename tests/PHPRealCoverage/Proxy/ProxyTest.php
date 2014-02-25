@@ -18,15 +18,16 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
         $proxyBuilder->setParentClass($parentClass);
         $proxyBuilder->addMethod('returnTrue');
         /** @var SomeBaseClass $proxy */
-        $proxy = $proxyBuilder->getProxy();
+        $proxyBuilder->loadProxy();
 
+        $proxy = new SomeBaseClass();
         $this->assertInstanceOf('\PHPRealCoverage\Proxy\SomeBaseClass', $proxy);
         $this->assertTrue($proxy->returnTrue());
 
         include __DIR__ . '/SomeExchangedClass.php';
 
         $someExchangedClass = new SomeExchangedClass();
-        $proxy->setInstance($someExchangedClass);
+        SomeBaseClass::setInstanceClass(get_class($someExchangedClass));
         $this->assertFalse($someExchangedClass->returnTrue());
         $this->assertFalse($proxy->returnTrue());
     }
