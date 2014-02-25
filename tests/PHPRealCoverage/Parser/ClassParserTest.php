@@ -70,6 +70,28 @@ class ClassParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($input, $line->getContent());
     }
 
+    public function parseLineDetectsClassDataProvider()
+    {
+        return array(
+            array('nada', false),
+            array('class someclass', true),
+            array(' class someclass ', true),
+            array('* class something', false),
+            array('class someclass{', true)
+        );
+    }
+
+    /**
+     * @dataProvider parseLineDetectsClassDataProvider
+     * @param $input
+     * @param $isClass
+     */
+    public function testParseLineDetectsClass($input, $isClass)
+    {
+        $line = $this->parser->parseLine($input);
+        $this->assertEquals($isClass, $line->isClass());
+    }
+
     public function parseLineDataProvider()
     {
         return array(
@@ -88,7 +110,7 @@ class ClassParserTest extends \PHPUnit_Framework_TestCase
      * @param $isMethod
      * @param $isFinal
      */
-    public function testParseLineDetectsMethods($input, $isMethod, $method = "", $isFinal = false)
+    public function testParseLineDetectsMethods($input, $isMethod)
     {
         $line = $this->parser->parseLine($input);
         $this->assertEquals($isMethod, $line->isMethod());
@@ -127,6 +149,7 @@ class ClassParserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals("SampleClass", $class->getName());
         $this->assertEquals("class SampleClass", $lines[5]->getContent());
+        $this->assertTrue($lines[5]->isClass());
         $this->assertTrue($lines[7]->isMethod());
         $this->assertTrue($lines[13]->isMethod());
         $this->assertFalse($lines[7]->isFinal());

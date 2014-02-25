@@ -43,7 +43,6 @@ class CoveredLineTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("final something ", $line->getFilteredContent());
     }
 
-
     public function testGetFilteredContentCommentsOut()
     {
         $line = new CoveredLine("final something ");

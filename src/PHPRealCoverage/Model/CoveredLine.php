@@ -11,6 +11,7 @@ class CoveredLine
     private $final = false;
     private $methodName;
     private $neccessary = true;
+    private $class = false;
 
     public function __construct($content)
     {
@@ -79,5 +80,15 @@ class CoveredLine
             return $content;
         }
         return str_replace('final ', '', $content);
+    }
+
+    public function isClass()
+    {
+        return $this->class;
+    }
+
+    public function setClass($class)
+    {
+        $this->class = $class;
     }
 }
