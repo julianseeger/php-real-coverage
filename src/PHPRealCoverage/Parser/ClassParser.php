@@ -7,6 +7,7 @@ use PHPRealCoverage\Model\CoveredLine;
 
 class ClassParser
 {
+    const NAMESPACE_PATTERN = '/namespace ([^\s]+);/Usi';
     const CLASSNAME_PATTERN = '/(^|\n)[^*\/\n]*class\s+([^\s{]+?)[\s{\n]*/Usi';
     const CLASSLINE_PATTERN = '/^[^*\/]*class\s+([^\s{]+?)[\s{\n]*/Usi';
     const METHOD_PATTERN = '/\s*(final)?\s*(public?|private?|protected?)\s*(static)?\s*function\s+(\w+?)/Usi';
@@ -33,6 +34,7 @@ class ClassParser
 
         $class = new CoveredClass();
         $class->setName($this->parseName($content));
+        $class->setNamespace($this->parseNamespace($content));
 
         $lines = explode("\n", $content);
         $lineNumber = 1;
@@ -82,5 +84,11 @@ class ClassParser
     private function isClass($input)
     {
         return (bool)preg_match(self::CLASSLINE_PATTERN, $input);
+    }
+
+    private function parseNamespace($content)
+    {
+        preg_match(self::NAMESPACE_PATTERN, $content, $matches);
+        return $matches[1];
     }
 }

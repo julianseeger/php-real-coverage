@@ -15,6 +15,7 @@ class CoveredClass
      * @var CoveredLine[]
      */
     private $lines = array();
+    private $namespace;
 
     /**
      * @param mixed $name
@@ -51,5 +52,15 @@ class CoveredClass
             $this->lines
         );
         return join("\n", $strings);
+    }
+
+    public function getNamespace()
+    {
+        return $this->namespace;
+    }
+
+    public function setNamespace($namespace)
+    {
+        $this->namespace = $namespace;
     }
 }
