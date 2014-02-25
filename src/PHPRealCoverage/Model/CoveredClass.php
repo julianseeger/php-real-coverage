@@ -45,13 +45,7 @@ class CoveredClass
 
     public function __toString()
     {
-        $strings = array_map(
-            function ($line) {
-                return (string)$line;
-            },
-            $this->lines
-        );
-        return join("\n", $strings);
+        return join("\n", $this->lines);
     }
 
     public function getNamespace()
