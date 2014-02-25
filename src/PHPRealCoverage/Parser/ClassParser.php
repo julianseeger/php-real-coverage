@@ -88,10 +88,6 @@ class ClassParser
         }
     }
 
-    private function isClass($input)
-    {
-    }
-
     private function parseNamespace($content)
     {
         preg_match(self::NAMESPACE_PATTERN, $content, $matches);
