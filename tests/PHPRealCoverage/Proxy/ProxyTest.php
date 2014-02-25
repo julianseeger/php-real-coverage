@@ -6,7 +6,7 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
 {
     public function testProxyCallsDifferentClasses()
     {
-        $this->loadBaseClass();
+        $this->loadBaseClass('SomeBaseClass');
 
         $namespace = 'PHPRealCoverage\Proxy';
         $className = 'SomeBaseClass';
@@ -17,26 +17,40 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
         $proxyBuilder->setClassName($className);
         $proxyBuilder->setParentClass($parentClass);
         $proxyBuilder->addMethod('returnTrue');
-        /** @var SomeBaseClass $proxy */
         $proxyBuilder->loadProxy();
 
         $proxy = new SomeBaseClass();
         $this->assertInstanceOf('\PHPRealCoverage\Proxy\SomeBaseClass', $proxy);
         $this->assertTrue($proxy->returnTrue());
 
-        include __DIR__ . '/SomeExchangedClass.php';
+        if (!class_exists('PHPRealCoverage\\Proxy\\SomeExchangedClass')) {
+            include __DIR__ . '/SomeExchangedClass.php';
+        }
 
-        $someExchangedClass = new SomeExchangedClass();
-        SomeBaseClass::setInstanceClass(get_class($someExchangedClass));
-        $this->assertFalse($someExchangedClass->returnTrue());
+        SomeBaseClass::setInstanceClass('PHPRealCoverage\\Proxy\\SomeExchangedClass');
         $this->assertFalse($proxy->returnTrue());
     }
 
-    private function loadBaseClass()
+    private function loadBaseClass($className)
     {
-        $content = file_get_contents(__DIR__ . '/SomeBaseClass.php');
-        $content = str_replace('SomeBaseClass', 'SomeBaseClass_original', $content);
+        $content = file_get_contents(__DIR__ . '/' . $className . '.php');
+        $content = str_replace($className, $className . '_original', $content);
         $content = str_replace('<?php', '', $content);
         eval($content);
+    }
+
+    public function testProxyPassesConstructorArguments()
+    {
+        $this->loadBaseClass('SomeClassWithConstructorArguments');
+
+        $builder = new ProxyBuilder();
+        $builder->setNamespace('PHPRealCoverage\Proxy');
+        $builder->setClassName('SomeClassWithConstructorArguments');
+        $builder->setParentClass('\PHPRealCoverage\Proxy\SomeClassWithConstructorArguments_original');
+        $builder->addMethod('getSomeParameter');
+        $builder->loadProxy();
+
+        $instance = new SomeClassWithConstructorArguments('passedByConstructor');
+        $this->assertEquals('passedByConstructor', $instance->getSomeParameter());
     }
 }
