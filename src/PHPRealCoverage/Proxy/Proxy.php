@@ -18,23 +18,10 @@ class Proxy
         $builder->setParentClass("\\" . $classMetadata->getNamespace() . "\\" . $classMetadata->getName());
         foreach ($classMetadata->getLines() as $line) {
             if ($line->isMethod()) {
-                $builder->addMethod($line->getMethodName());    //TODO remove coupling here
+                $builder->addMethod($line->getMethodName()); //TODO remove coupling here
             }
         }
         $builder->loadProxy();
-    }
-
-    /**
-     * @param $baseName
-     * @return string
-     */
-    private function generateBasename($className, $namespace)
-    {
-        $name = $className . '_original';
-        while (class_exists("\\" . $namespace . "\\" . $name)) {
-            $name .= mt_rand(0, 999);
-        }
-        return $name;
     }
 
     public function loadClass(ClassMetadata $class2)
