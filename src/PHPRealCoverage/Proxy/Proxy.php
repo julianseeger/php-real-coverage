@@ -6,22 +6,15 @@ class Proxy
 {
     private $proxyName;
 
+    private $classmetadata;
+
+    private $originalClassName;
+
     public function __construct(ClassMetadata $classMetadata)
     {
-        $originalClassName = $classMetadata->getName();
-        $this->proxyName = "\\" . $classMetadata->getNamespace() . "\\" . $originalClassName;
-        $this->evalClass($classMetadata);
-
-        $builder = new ProxyBuilder();
-        $builder->setNamespace($classMetadata->getNamespace());
-        $builder->setClassName($originalClassName);
-        $builder->setParentClass("\\" . $classMetadata->getNamespace() . "\\" . $classMetadata->getName());
-        foreach ($classMetadata->getLines() as $line) {
-            if ($line->isMethod()) {
-                $builder->addMethod($line->getMethodName()); //TODO remove coupling here
-            }
-        }
-        $builder->loadProxy();
+        $this->originalClassName = $classMetadata->getName();
+        $this->proxyName = "\\" . $classMetadata->getNamespace() . "\\" . $this->originalClassName;
+        $this->classmetadata = $classMetadata;
     }
 
     public function loadClass(ClassMetadata $class2)
@@ -47,6 +40,22 @@ class Proxy
      */
     public function getCanonicalClassName(ClassMetadata $class2)
     {
-        return "\\" . $class2->getNamespace() . "\\" . $class2->getName();
+        return "\\" . trim($class2->getNamespace(), "\\") . "\\" . $class2->getName();
+    }
+
+    public function load()
+    {
+        $this->evalClass($this->classmetadata);
+
+        $builder = new ProxyBuilder();
+        $builder->setNamespace($this->classmetadata->getNamespace());
+        $builder->setClassName($this->originalClassName);
+        $builder->setParentClass("\\" . $this->classmetadata->getNamespace() . "\\" . $this->classmetadata->getName());
+        foreach ($this->classmetadata->getLines() as $line) {
+            if ($line->isMethod()) {
+                $builder->addMethod($line->getMethodName()); //TODO remove coupling here
+            }
+        }
+        $builder->loadProxy();
     }
 }

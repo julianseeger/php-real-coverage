@@ -2,6 +2,7 @@
 
 namespace PHPRealCoverage\Proxy;
 
+use PHPRealCoverage\Model\CoveredClass;
 use PHPRealCoverage\Model\CoveredLine;
 use PHPRealCoverage\Model\DynamicClassnameCoveredClass;
 use PHPRealCoverage\Parser\ClassParser;
@@ -32,6 +33,7 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
 
         //act
         $proxy = new Proxy($exampleClass);
+        $proxy->load();
         $instance = new \SomeNamespace\ClassA();
     }
 
@@ -58,6 +60,7 @@ class ClassA {
 
         // act
         $proxy = new Proxy($class1);
+        $proxy->load();
         $name = "\\ProxyTest\\ClassA";
         $instance = new $name();
         $this->assertEquals('something', $instance->returnSomething());
@@ -66,5 +69,31 @@ class ClassA {
 
         //assert
         $this->assertEquals("anything", $instance->returnSomething());
+    }
+
+    public function canonicalClassnameDataProvider()
+    {
+        return array(
+            array('SomeNamespace', 'SomeClassname', '\\SomeNamespace\\SomeClassname'),
+            array('\\SomeNamespace\\', 'SomeClassname', '\\SomeNamespace\\SomeClassname'),
+            array('\\SomeNamespace', 'SomeClassname', '\\SomeNamespace\\SomeClassname'),
+            array('Namespace', 'Class__WITH__SPECIAL_123chars', '\\Namespace\\Class__WITH__SPECIAL_123chars')
+        );
+    }
+
+    /**
+     * @dataProvider canonicalClassnameDataProvider
+     * @param $namespace
+     * @param $name
+     * @param $expected
+     */
+    public function testGetCanonicalClassname($namespace, $name, $expected)
+    {
+        $input = new CoveredClass();
+        $input->setNamespace($namespace);
+        $input->setName($name);
+
+        $proxy = new Proxy($input);
+        $this->assertEquals($expected, $proxy->getCanonicalClassName($input));
     }
 }

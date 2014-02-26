@@ -3,8 +3,9 @@
 
 namespace PHPRealCoverage\Model;
 
+use PHPRealCoverage\Proxy\ClassMetadata;
 
-class CoveredClass
+class CoveredClass implements ClassMetadata
 {
     /**
      * @var string
