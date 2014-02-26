@@ -39,3 +39,5 @@ Make your changes tested and in PSR-2
 Execute the the tests again
 
 And make your Pull Request
+
+PS: The build will fail if the testcoverage falls below 100%
