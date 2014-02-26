@@ -2,10 +2,10 @@
 <project name="PHP_RealCoverage" default="build">
     <target name="phpcs" description="Find coding standard violations using PHP_CodeSniffer">
         <exec executable="vendor/bin/phpcs" checkreturn="true" passthru="true">
-            <arg value="--standard=PSR2" />
-            <arg value="--extensions=php" />
-            <arg path="src" />
-            <arg path="tests" />
+            <arg value="--standard=PSR2"/>
+            <arg value="--extensions=php"/>
+            <arg path="src"/>
+            <arg path="tests"/>
         </exec>
     </target>
 
@@ -13,9 +13,24 @@
         <exec executable="vendor/bin/phpunit" checkreturn="true" passthru="true"/>
     </target>
 
+    <target name="test-with-coverage">
+        <exec executable="vendor/bin/phpunit" checkreturn="true" passthru="true">
+            <arg value="--coverage-text=coverage.text"/>
+        </exec>
+    </target>
+
+    <target name="checkcoverage">
+        <phingcall target="test-with-coverage"/>
+        <exec executable="/bin/bash" checkreturn="true" passthru="true">
+            <arg value="ensureCoverage.sh"/>
+            <arg value="coverage.text"/>
+        </exec>
+        <echo>100% Coverage</echo>
+    </target>
+
     <target name="build">
         <phingcall target="phpcs"/>
-        <phingcall target="test"/>
+        <phingcall target="checkcoverage"/>
     </target>
 </project>
 
