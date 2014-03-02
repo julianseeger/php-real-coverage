@@ -7,7 +7,7 @@ php:
 
 before_script:
   - composer install --prefer-dist --optimize-autoloader
-  - vendor/bin/phpcs
+  - vendor/bin/phpcs --standard=PSR2 --extensions=php src tests
 
 after_script:
   - ensureCoverage.sh coverage.text
