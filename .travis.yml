@@ -7,5 +7,7 @@ php:
 
 before_script:
   - composer install --prefer-dist --optimize-autoloader
+  - vendor/bin/phpcs
 
-script: ./vendor/bin/phing
+after_script:
+  - ensureCoverage.sh coverage.text
