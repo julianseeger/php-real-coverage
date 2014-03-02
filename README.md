@@ -20,9 +20,9 @@ Generate a coverage-report with phpunit
 ```
 ./vendor/bin/phpunit --coverage-php coverage.php
 ```
-And let PHPRealCoverage test the quality of your coverage
+And let php-real-coverage test the quality of your coverage
 ```
-./vendor/bin/realcoverage coverage.php
+./vendor/bin/php-real-coverage coverage.php
 ```
 
 contribute
