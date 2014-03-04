@@ -5,7 +5,6 @@ namespace PHPRealCoverage\Parser;
 use PHPRealCoverage\Parser\Model\CoveredClass;
 use PHPRealCoverage\Parser\Model\CoveredLine;
 use PHPRealCoverage\Parser\Model\DynamicClassnameCoveredClass;
-use PHPRealCoverage\Proxy\Line;
 
 class ClassParser
 {
@@ -15,6 +14,7 @@ class ClassParser
     const METHOD_PATTERN = '/\s*(final)?\s*(public?|private?|protected?)\s*(static)?\s*function\s+(\w+?)/Usi';
 
     /**
+     * @param $filename
      * @return CoveredClass
      */
     public function parse($filename)

@@ -35,8 +35,8 @@ class ClassParserTest extends \PHPUnit_Framework_TestCase
 
     public function parseClassNameDataProvider()
     {
-        return array (
-            array (
+        return array(
+            array(
                 "\npublic class Defaultname extends Supersonic implements \\Namespace\\Interface {",
                 "Defaultname"
             ),
