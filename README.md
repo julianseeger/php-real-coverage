@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/julianseeger/php-real-coverage.png?branch=master)](https://travis-ci.org/julianseeger/php-real-coverage) [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/julianseeger/php-real-coverage/badges/quality-score.png?s=c0d591e596fc48b728b46654969d00cdcee9b3d8)](https://scrutinizer-ci.com/g/julianseeger/php-real-coverage/)
+
 WIP!!!
 
 php-real-coverage
