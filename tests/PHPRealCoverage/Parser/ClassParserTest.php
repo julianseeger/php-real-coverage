@@ -175,7 +175,7 @@ class ClassParserTest extends \PHPUnit_Framework_TestCase
         $class = $this->parser->parse(__DIR__ . '/SampleClass.php');
         $lines = $class->getLines();
         $classLine = $lines[5];
-        $this->assertInstanceOf('PHPRealCoverage\Model\DynamicClassnameCoveredLine', $classLine);
+        $this->assertInstanceOf('PHPRealCoverage\Parser\Model\DynamicClassnameCoveredLine', $classLine);
 
         $class->setName('Replacement');
         $this->assertEquals('class Replacement', (string)$classLine);

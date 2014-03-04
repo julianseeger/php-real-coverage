@@ -1,5 +1,5 @@
 <?php
-namespace PHPRealCoverage\Model;
+namespace PHPRealCoverage\Proxy;
 
 interface Line
 {

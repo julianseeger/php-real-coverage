@@ -1,9 +1,11 @@
 <?php
 
 
-namespace PHPRealCoverage\Model;
+namespace PHPRealCoverage\Parser\Model;
 
 use PHPRealCoverage\Proxy\ClassMetadata;
+use PHPRealCoverage\Proxy\Line;
+use string;
 
 class CoveredClass implements ClassMetadata
 {
@@ -57,5 +59,19 @@ class CoveredClass implements ClassMetadata
     public function setNamespace($namespace)
     {
         $this->namespace = $namespace;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getMethods()
+    {
+        $methods = array();
+        foreach ($this->lines as $line) {
+            if ($line->isMethod()) {
+                $methods[] = $line->getMethodName();
+            }
+        }
+        return $methods;
     }
 }

@@ -4,10 +4,19 @@ namespace PHPRealCoverage\Proxy;
 
 class Proxy
 {
+    /**
+     * @var string
+     */
     private $proxyName;
 
+    /**
+     * @var ClassMetadata
+     */
     private $classmetadata;
 
+    /**
+     * @var string
+     */
     private $originalClassName;
 
     public function __construct(ClassMetadata $classMetadata)
@@ -51,10 +60,8 @@ class Proxy
         $builder->setNamespace($this->classmetadata->getNamespace());
         $builder->setClassName($this->originalClassName);
         $builder->setParentClass("\\" . $this->classmetadata->getNamespace() . "\\" . $this->classmetadata->getName());
-        foreach ($this->classmetadata->getLines() as $line) {
-            if ($line->isMethod()) {
-                $builder->addMethod($line->getMethodName()); //TODO remove coupling here
-            }
+        foreach ($this->classmetadata->getMethods() as $method) {
+            $builder->addMethod($method);
         }
         $builder->loadProxy();
     }

@@ -2,10 +2,10 @@
 
 namespace PHPRealCoverage\Parser;
 
-use PHPRealCoverage\Model\CoveredClass;
-use PHPRealCoverage\Model\CoveredLine;
-use PHPRealCoverage\Model\DynamicClassnameCoveredClass;
-use PHPRealCoverage\Model\Line;
+use PHPRealCoverage\Parser\Model\CoveredClass;
+use PHPRealCoverage\Parser\Model\CoveredLine;
+use PHPRealCoverage\Parser\Model\DynamicClassnameCoveredClass;
+use PHPRealCoverage\Proxy\Line;
 
 class ClassParser
 {
@@ -32,7 +32,7 @@ class ClassParser
 
     /**
      * @param $input
-     * @return Line
+     * @return \PHPRealCoverage\Proxy\Line
      */
     public function parseLine($input)
     {

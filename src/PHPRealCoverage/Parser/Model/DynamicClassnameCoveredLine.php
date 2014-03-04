@@ -1,6 +1,8 @@
 <?php
 
-namespace PHPRealCoverage\Model;
+namespace PHPRealCoverage\Parser\Model;
+
+use PHPRealCoverage\Proxy\Line;
 
 class DynamicClassnameCoveredLine implements Line
 {

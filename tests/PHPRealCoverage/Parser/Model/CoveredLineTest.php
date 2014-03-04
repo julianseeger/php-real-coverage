@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPRealCoverage\Model;
+namespace PHPRealCoverage\Parser\Model;
 
 use PHPUnit_Framework_TestCase;
 

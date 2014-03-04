@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPRealCoverage\Model;
+namespace PHPRealCoverage\Parser\Model;
 
 class DynamicClassnameCoveredClassTest extends \PHPUnit_Framework_TestCase
 {
