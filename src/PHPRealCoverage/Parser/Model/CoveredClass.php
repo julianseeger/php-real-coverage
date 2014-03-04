@@ -5,7 +5,6 @@ namespace PHPRealCoverage\Parser\Model;
 
 use PHPRealCoverage\Proxy\ClassMetadata;
 use PHPRealCoverage\Proxy\Line;
-use string;
 
 class CoveredClass implements ClassMetadata
 {

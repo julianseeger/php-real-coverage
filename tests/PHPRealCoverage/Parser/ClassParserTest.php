@@ -98,6 +98,7 @@ class ClassParserTest extends \PHPUnit_Framework_TestCase
      * @dataProvider parseLineDetectsClassDataProvider
      * @param $input
      * @param $isClass
+     * @param $className
      */
     public function testParseLineDetectsClass($input, $isClass, $className)
     {
@@ -120,9 +121,7 @@ class ClassParserTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider parseLineDataProvider
      * @param $input
-     * @param $method
      * @param $isMethod
-     * @param $isFinal
      */
     public function testParseLineDetectsMethods($input, $isMethod)
     {

@@ -2,8 +2,6 @@
 
 namespace PHPRealCoverage\Proxy;
 
-use PHPRealCoverage\Model\CoveredLine;
-
 class ProxyBuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function testProxyCallsDifferentClasses()

@@ -2,8 +2,6 @@
 
 namespace PHPRealCoverage\Proxy;
 
-use PHPRealCoverage\Model\CoveredLine;
-
 class ProxyBuilder
 {
     private $namespace;
@@ -103,7 +101,7 @@ class ProxyBuilder
 
     /**
      * @param $method
-     * @param $proxyContent
+     * @internal param $proxyContent
      * @return string
      */
     public function getProxyMethod($method)
