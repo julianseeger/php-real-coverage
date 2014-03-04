@@ -6,7 +6,7 @@ php:
   - hhvm
 
 before_script:
-  - composer install --prefer-dist --optimize-autoloader
+  - composer install --prefer-dist --dev
   - vendor/bin/phpcs --standard=PSR2 --extensions=php src tests
 
 after_script:
