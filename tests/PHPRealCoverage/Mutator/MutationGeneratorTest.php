@@ -73,4 +73,28 @@ class MutationGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->line2, $this->getLine($stack3[1]));
         $this->assertEquals($this->line1, $this->getLine($stack3[2]));
     }
+
+    public function testMutatorOnlyUsesEnabledLines()
+    {
+        $this->line2->disable();
+
+        $this->mutator->getMutationStack();
+        $stack2 = $this->mutator->getMutationStack();
+        $this->assertEquals(2, count($stack2));
+        $this->assertEquals($this->line3, $this->getLine($stack2[0]));
+        $this->assertEquals($this->line1, $this->getLine($stack2[1]));
+    }
+
+    public function testMutatorThrowsExceptionAfterLastStack()
+    {
+        $this->line2->disable();
+        $this->line3->disable();
+
+        $this->mutator->getMutationStack();
+        try {
+            $this->mutator->getMutationStack();
+        } catch (NoMoreMutationsException $e) {
+
+        }
+    }
 }

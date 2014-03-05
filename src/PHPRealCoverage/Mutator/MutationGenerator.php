@@ -27,13 +27,34 @@ class MutationGenerator
         return $this->getAffectedLines($this->curentLine++);
     }
 
-    private function getAffectedLines($currentLine)
+    private function getAffectedLines($lineCount)
     {
         $affectedLines = array();
         $mutatableLines = $this->class->getMutatableLines();
-        for ($i = $currentLine; $i >= 0; $i--) {
-            $affectedLines[] = new DefaultMutationCommand($mutatableLines[$i]);
+
+        $i = 0;
+        while (count($affectedLines) <= $lineCount) {
+            if ($this->maxLineReached($mutatableLines, $i)) {
+                throw new NoMoreMutationsException();
+            }
+            $line = $mutatableLines[$i++];
+
+            if (!$line->isEnabled()) {
+                continue;
+            }
+
+            $affectedLines[] = new DefaultMutationCommand($line);
         }
         return $affectedLines;
+    }
+
+    /**
+     * @param $mutatableLines
+     * @param $i
+     * @return bool
+     */
+    private function maxLineReached($mutatableLines, $i)
+    {
+        return !isset($mutatableLines[$i]);
     }
 }
