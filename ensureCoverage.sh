@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # expects a coverage-text report from phpunit as first argument
 grep "Classes: 100.00%" $1 > /dev/null
 grepResult=$?

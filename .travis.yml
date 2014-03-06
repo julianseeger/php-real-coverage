@@ -10,4 +10,4 @@ before_script:
   - vendor/bin/phpcs --standard=PSR2 --extensions=php src tests
 
 after_script:
-  - /bin/bash -ex ensureCoverage.sh coverage.text
+  - /bin/bash -x ensureCoverage.sh coverage.text
