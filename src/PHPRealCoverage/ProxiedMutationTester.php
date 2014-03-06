@@ -5,6 +5,7 @@ namespace PHPRealCoverage;
 use PHPRealCoverage\Mutator\MutationTester;
 use PHPRealCoverage\Proxy\ClassMetadata;
 use PHPRealCoverage\Proxy\Proxy;
+use PHPRealCoverage\TestRunner\PHPUnitRunner;
 
 class ProxiedMutationTester implements MutationTester
 {
@@ -16,15 +17,21 @@ class ProxiedMutationTester implements MutationTester
      * @var ClassMetadata
      */
     private $class;
+    /**
+     * @var TestRunner\PHPUnitRunner
+     */
+    private $runner;
 
-    public function __construct(Proxy $proxy, ClassMetadata $class)
+    public function __construct(Proxy $proxy, ClassMetadata $class, PHPUnitRunner $runner)
     {
         $this->class = $class;
         $this->proxy = $proxy;
+        $this->runner = $runner;
     }
 
     public function isValid()
     {
         $this->proxy->loadClass($this->class);
+        return $this->runner->isValid();
     }
 }
