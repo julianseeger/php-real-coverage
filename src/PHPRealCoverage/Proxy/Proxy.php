@@ -29,8 +29,11 @@ class Proxy
     public function loadClass(ClassMetadata $class2)
     {
         $proxy = $this->proxyName;
-        $this->evalClass($class2);
+        if (!$this->evalClass($class2)) {
+            return false;
+        }
         $proxy::setInstanceClass($this->getCanonicalClassName($class2));
+        return true;
     }
 
     private function evalClass(ClassMetadata $class)
@@ -40,7 +43,8 @@ class Proxy
             $class->setName($class->getName() . mt_rand(0, 999));
         }
 
-        eval((string)$class);
+        $result = @eval((string)$class) !== false;
+        return $result;
     }
 
     /**

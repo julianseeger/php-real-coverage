@@ -71,6 +71,33 @@ class ClassA {
         $this->assertEquals("anything", $instance->returnSomething());
     }
 
+    public function testLoadClassReturnsFalseOnParseError()
+    {
+        $class = new CoveredClass();
+        $class->setName("MyName");
+        $class->addLine(0, new CoveredLine("THIS IS A PARSE ERROR!"));
+
+        $proxy = new Proxy($class);
+        $this->assertFalse($proxy->loadClass($class));
+    }
+
+    public function testLoadClassReturnsTrueOnParsingSuccess()
+    {
+        $class = new DynamicClassnameCoveredClass();
+        $class->setName("MyOtherName");
+        $class->setNamespace("MyNamespace");
+        $class->addLine(0, new CoveredLine("namespace MyNamespace;"));
+        $line1 = new CoveredLine("class MyOtherName{");
+        $line1->setClass(true);
+        $line1->setClassName("MyOtherName");
+        $class->addLine(1, $line1);
+        $class->addLine(2, new CoveredLine("}"));
+
+        $proxy = new Proxy($class);
+        $proxy->load();
+        $this->assertTrue($proxy->loadClass($class));
+    }
+
     public function canonicalClassnameDataProvider()
     {
         return array(
