@@ -31,7 +31,9 @@ class ProxiedMutationTester implements MutationTester
 
     public function isValid()
     {
-        $this->proxy->loadClass($this->class);
+        if (!$this->proxy->loadClass($this->class)) {
+            return false;
+        }
         return $this->runner->isValid();
     }
 }
