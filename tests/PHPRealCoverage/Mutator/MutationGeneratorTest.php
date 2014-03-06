@@ -2,6 +2,8 @@
 
 namespace PHPRealCoverage\Mutator;
 
+use PHPRealCoverage\Mutator\Exception\NoMoreMutationsException;
+
 class MutationGeneratorTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -83,6 +85,21 @@ class MutationGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, count($stack2));
         $this->assertEquals($this->line3, $this->getLine($stack2[0]));
         $this->assertEquals($this->line1, $this->getLine($stack2[1]));
+    }
+
+    public function testMutatorIncreasesLineOncePerRequest()
+    {
+        $this->mutator->getMutationStack();
+        $stack2 = $this->mutator->getMutationStack();
+        $this->assertEquals(2, count($stack2));
+        $this->assertEquals($this->line2, $this->getLine($stack2[0]));
+        $this->assertEquals($this->line1, $this->getLine($stack2[1]));
+
+        $this->line2->disable(); // disabled per mutator or whatever
+        $stack3 = $this->mutator->getMutationStack();
+        $this->assertEquals(2, count($stack3));
+        $this->assertEquals($this->line3, $this->getLine($stack3[0]));
+        $this->assertEquals($this->line1, $this->getLine($stack3[1]));
     }
 
     public function testMutatorThrowsExceptionAfterLastStack()

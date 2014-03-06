@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPRealCoverage\Mutator;
+namespace PHPRealCoverage\Mutator\Exception;
 
 class NoMoreMutationsException extends \Exception
 {

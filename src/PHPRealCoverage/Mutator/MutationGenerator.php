@@ -2,6 +2,8 @@
 
 namespace PHPRealCoverage\Mutator;
 
+use PHPRealCoverage\Mutator\Exception\NoMoreMutationsException;
+
 class MutationGenerator
 {
     /**
@@ -20,31 +22,30 @@ class MutationGenerator
     }
 
     /**
+     * @throws Exception\NoMoreMutationsException
      * @return MutationCommand[]
      */
     public function getMutationStack()
     {
-        return $this->getAffectedLines($this->curentLine++);
-    }
-
-    private function getAffectedLines($lineCount)
-    {
         $affectedLines = array();
         $mutatableLines = $this->class->getMutatableLines();
 
-        $i = 0;
-        while (count($affectedLines) <= $lineCount) {
+        for ($i = 0; $i <= $this->curentLine; $i++) {
             if ($this->maxLineReached($mutatableLines, $i)) {
                 throw new NoMoreMutationsException();
             }
-            $line = $mutatableLines[$i++];
+            $line = $mutatableLines[$i];
 
             if (!$line->isEnabled()) {
+                if ($i == $this->curentLine) {
+                    $this->curentLine++;
+                }
                 continue;
             }
 
             $affectedLines[] = new DefaultMutationCommand($line);
         }
+        $this->curentLine++;
         return $affectedLines;
     }
 
