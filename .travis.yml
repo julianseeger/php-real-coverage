@@ -11,3 +11,5 @@ before_script:
 
 after_script:
   - /bin/bash -e ensureCoverage.sh coverage.text
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover

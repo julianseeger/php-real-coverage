@@ -10,6 +10,7 @@
 
     <logging>
         <log type="coverage-text" target="coverage.text"/>
+        <log type="coverage-clover" target="coverage.clover"/>
     </logging>
 
     <filter>
