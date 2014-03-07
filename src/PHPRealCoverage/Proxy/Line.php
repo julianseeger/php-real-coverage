@@ -5,6 +5,9 @@ interface Line
 {
     public function getFilteredContent();
 
+    /**
+     * @return bool
+     */
     public function isFinal();
 
     /**
@@ -12,10 +15,19 @@ interface Line
      */
     public function isMethod();
 
+    /**
+     * @return bool
+     */
     public function isClass();
 
+    /**
+     * @return string
+     */
     public function getMethodName();
 
+    /**
+     * @return string
+     */
     public function getClassName();
 
     /**
@@ -25,7 +37,23 @@ interface Line
 
     public function __toString();
 
+    /**
+     * @param bool $neccessary
+     */
     public function setNeccessary($neccessary);
 
+    /**
+     * @return bool
+     */
     public function isNeccessary();
+
+    /**
+     * @return bool
+     */
+    public function isCovered();
+
+    /**
+     * @param bool $covered
+     */
+    public function setCovered($covered);
 }

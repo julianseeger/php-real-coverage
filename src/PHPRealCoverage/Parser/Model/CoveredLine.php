@@ -13,6 +13,7 @@ class CoveredLine implements Line
     private $final = false;
     private $methodName;
     private $neccessary = true;
+    private $covered = true;
     private $class = false;
     private $className;
 
@@ -108,5 +109,21 @@ class CoveredLine implements Line
     public function setClassName($className)
     {
         $this->className = $className;
+    }
+
+    /**
+     * @param boolean $covered
+     */
+    public function setCovered($covered)
+    {
+        $this->covered = $covered;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCovered()
+    {
+        return $this->covered;
     }
 }

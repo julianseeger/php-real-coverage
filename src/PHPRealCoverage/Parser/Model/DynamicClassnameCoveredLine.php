@@ -85,4 +85,20 @@ class DynamicClassnameCoveredLine implements Line
     {
         return $this->line->isNeccessary();
     }
+
+    /**
+     * @return bool
+     */
+    public function isCovered()
+    {
+        return $this->line->isCovered();
+    }
+
+    /**
+     * @param bool $covered
+     */
+    public function setCovered($covered)
+    {
+        $this->line->setCovered($covered);
+    }
 }

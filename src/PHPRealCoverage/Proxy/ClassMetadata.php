@@ -30,6 +30,12 @@ interface ClassMetadata
     public function getLines();
 
     /**
+     * @param int $lineNumber
+     * @return Line
+     */
+    public function getLine($lineNumber);
+
+    /**
      * @return string
      */
     public function __toString();
