@@ -71,7 +71,9 @@ class CoveredLineTest extends PHPUnit_Framework_TestCase
     {
         $line = new CoveredLine("");
         $line->setNeccessary($neccessary);
-        $line->setCovered($covered);
+        if ($covered) {
+            $line->addCoverage("");
+        }
         $this->assertEquals($expectedEnabled, $line->isEnabled());
     }
 
@@ -79,7 +81,7 @@ class CoveredLineTest extends PHPUnit_Framework_TestCase
     {
         $line = new CoveredLine("");
         $line->setNeccessary(true);
-        $line->setCovered(true);
+        $line->addCoverage("");
         $this->assertTrue($line->isEnabled());
 
         $line->disable();
@@ -90,6 +92,15 @@ class CoveredLineTest extends PHPUnit_Framework_TestCase
         $line->enable();
         $this->assertTrue($line->isEnabled());
         $this->assertTrue($line->isNeccessary());
+        $this->assertTrue($line->isCovered());
+    }
+
+    public function testConvertsCoverageToBoolean()
+    {
+        $line = new CoveredLine("");
+        $this->assertFalse($line->isCovered());
+
+        $line->addCoverage("bla");
         $this->assertTrue($line->isCovered());
     }
 }

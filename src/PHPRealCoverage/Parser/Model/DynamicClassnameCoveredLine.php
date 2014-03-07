@@ -95,10 +95,10 @@ class DynamicClassnameCoveredLine implements Line
     }
 
     /**
-     * @param bool $covered
+     * @param string $test
      */
-    public function setCovered($covered)
+    public function addCoverage($test)
     {
-        $this->line->setCovered($covered);
+        $this->line->addCoverage($test);
     }
 }

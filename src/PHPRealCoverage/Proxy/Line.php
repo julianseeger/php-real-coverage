@@ -53,7 +53,7 @@ interface Line
     public function isCovered();
 
     /**
-     * @param bool $covered
+     * @param string $test
      */
-    public function setCovered($covered);
+    public function addCoverage($test);
 }

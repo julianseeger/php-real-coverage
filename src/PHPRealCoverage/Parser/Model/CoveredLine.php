@@ -14,7 +14,7 @@ class CoveredLine implements Line, MutatableLine
     private $final = false;
     private $methodName;
     private $neccessary = true;
-    private $covered = true;
+    private $coveringTest = false;
     private $class = false;
     private $className;
 
@@ -113,11 +113,11 @@ class CoveredLine implements Line, MutatableLine
     }
 
     /**
-     * @param boolean $covered
+     * @param string $test
      */
-    public function setCovered($covered)
+    public function addCoverage($test)
     {
-        $this->covered = $covered;
+        $this->coveringTest[] = $test;
     }
 
     /**
@@ -125,7 +125,7 @@ class CoveredLine implements Line, MutatableLine
      */
     public function isCovered()
     {
-        return $this->covered;
+        return !empty($this->coveringTest);
     }
 
     public function enable()
