@@ -39,6 +39,11 @@ class ParsingCoverageReader
      */
     public function populateLine(Line $line, array $tests = null)
     {
+        $line->setExecutable(!is_null($tests));
+
+        if (is_null($tests)) {
+            return;
+        }
         foreach ($tests as $test) {
             $line->addCoverage($test);
         }

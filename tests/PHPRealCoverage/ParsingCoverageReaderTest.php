@@ -2,6 +2,8 @@
 
 namespace PHPRealCoverage;
 
+use PHPRealCoverage\Parser\Model\CoveredLine;
+
 class ParsingCoverageReaderTest extends \PHPUnit_Framework_TestCase
 {
     public function testParseReportsCreatesClassesWithCoverageInformation()
@@ -31,9 +33,25 @@ class ParsingCoverageReaderTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($lines[11]->isCovered());
     }
 
-    public function testParseClassAddsExecutableInformation()
+    public function executableInformationDataProvider()
     {
+        return array(
+            array(null, false),
+            array(array(), true),
+            array(array("test"), true)
+        );
+    }
 
+    /**
+     * @dataProvider executableInformationDataProvider
+     */
+    public function testPopulateLineAddsExecutableInformation($tests, $executable)
+    {
+        $line = new CoveredLine("");
+        $reader = new ParsingCoverageReader();
+        $reader->populateLine($line, $tests);
+
+        $this->assertEquals($executable, $line->isExecutable());
     }
 
     /**
