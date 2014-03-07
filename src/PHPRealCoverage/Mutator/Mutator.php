@@ -10,20 +10,7 @@ class Mutator
     {
         try {
             while (true) {
-                $commands = $generator->getMutationStack();
-                $lineToTest = $commands[0];
-                $lineToTest->execute();
-
-                if ($tester->isValid()) {
-                    continue;
-                }
-
-                $rest = array_slice($commands, 1);
-                if (!$this->findWorkingPermutation($rest, $tester)) {
-                    foreach ($commands as $command) {
-                        $command->undo();
-                    }
-                }
+                $this->iterate($tester, $generator);
             }
         } catch (NoMoreMutationsException $e) {
         }
@@ -53,5 +40,25 @@ class Mutator
 
         $lineToTest->undo();
         return $this->findWorkingPermutation($rest, $tester);
+    }
+
+    /**
+     * @param MutationTester $tester
+     * @param MutationGenerator $generator
+     */
+    public function iterate(MutationTester $tester, MutationGenerator $generator)
+    {
+        $commands = $generator->getMutationStack();
+        $lineToTest = $commands[0];
+        $lineToTest->execute();
+
+        if (!$tester->isValid()) {
+            $rest = array_slice($commands, 1);
+            if (!$this->findWorkingPermutation($rest, $tester)) {
+                foreach ($commands as $command) {
+                    $command->undo();
+                }
+            }
+        }
     }
 }

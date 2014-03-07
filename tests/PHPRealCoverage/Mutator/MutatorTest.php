@@ -65,9 +65,9 @@ class MutatorTest extends \PHPUnit_Framework_TestCase
     public function testMutatorDetectsPermutationsWithWholes()
     {
         //arrange
-        $line1 = new DefaultMutatableLine(); //neccessary
-        $line2 = new DefaultMutatableLine();
-        $line3 = new DefaultMutatableLine(); //neccessary
+        $line1 = new DefaultMutatableLine();
+        $line2 = new DefaultMutatableLine(); //neccessary
+        $line3 = new DefaultMutatableLine();
         $line4 = new DefaultMutatableLine();
 
         $class = $this->getMockForAbstractClass('PHPRealCoverage\Mutator\MutatableClass');
@@ -82,7 +82,7 @@ class MutatorTest extends \PHPUnit_Framework_TestCase
             if ($line1->isEnabled() && $line2->isEnabled() && $line3->isEnabled() && $line4->isEnabled()) {
                 return true;
             }
-            return !$line1->isEnabled() && $line2->isEnabled() && !$line3->isEnabled() && $line4->isEnabled();
+            return !$line1->isEnabled() && $line2->isEnabled() && !$line3->isEnabled() && !$line4->isEnabled();
         };
         $tester = $this->getMockForAbstractClass('PHPRealCoverage\Mutator\MutationTester');
         $tester->expects($this->any())
@@ -91,12 +91,39 @@ class MutatorTest extends \PHPUnit_Framework_TestCase
 
         //act
         $mutator = new Mutator();
-        $mutator->testMutations($tester, $generator);
+        $mutator->iterate($tester, $generator);
+
+        //assert
+        $this->assertTrue($line1->isEnabled());
+        $this->assertTrue($line2->isEnabled());
+        $this->assertTrue($line3->isEnabled());
+        $this->assertTrue($line4->isEnabled());
+
+        //act
+        $mutator->iterate($tester, $generator);
+
+        //assert
+        $this->assertTrue($line1->isEnabled());
+        $this->assertTrue($line2->isEnabled());
+        $this->assertTrue($line3->isEnabled());
+        $this->assertTrue($line4->isEnabled());
+
+        //act
+        $mutator->iterate($tester, $generator);
+
+        //assert
+        $this->assertTrue($line1->isEnabled());
+        $this->assertTrue($line2->isEnabled());
+        $this->assertTrue($line3->isEnabled());
+        $this->assertTrue($line4->isEnabled());
+
+        //act
+        $mutator->iterate($tester, $generator);
 
         //assert
         $this->assertFalse($line1->isEnabled());
         $this->assertTrue($line2->isEnabled());
         $this->assertFalse($line3->isEnabled());
-        $this->assertTrue($line4->isEnabled());
+        $this->assertFalse($line4->isEnabled());
     }
 }
