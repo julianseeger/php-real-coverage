@@ -31,6 +31,11 @@ class ParsingCoverageReaderTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($lines[11]->isCovered());
     }
 
+    public function testParseClassAddsExecutableInformation()
+    {
+
+    }
+
     /**
      * @return \PHP_CodeCoverage
      */

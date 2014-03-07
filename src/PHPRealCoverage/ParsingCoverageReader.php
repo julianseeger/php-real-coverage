@@ -4,6 +4,7 @@ namespace PHPRealCoverage;
 
 use PHPRealCoverage\Parser\ClassParser;
 use PHPRealCoverage\Proxy\ClassMetadata;
+use PHPRealCoverage\Proxy\Line;
 
 class ParsingCoverageReader
 {
@@ -19,9 +20,7 @@ class ParsingCoverageReader
     {
         foreach ($coverageData as $lineNumber => $tests) {
             $line = $coveredClass->getLine($lineNumber);
-            foreach ($tests as $test) {
-                $line->addCoverage($test);
-            }
+            $this->populateLine($line, $tests);
         }
     }
 
@@ -32,5 +31,16 @@ class ParsingCoverageReader
             $classes[] = $this->parseClass($filename, $coverage);
         }
         return $classes;
+    }
+
+    /**
+     * @param Line $line
+     * @param array $tests
+     */
+    public function populateLine(Line $line, array $tests = null)
+    {
+        foreach ($tests as $test) {
+            $line->addCoverage($test);
+        }
     }
 }
