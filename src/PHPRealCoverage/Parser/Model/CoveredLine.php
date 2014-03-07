@@ -17,6 +17,7 @@ class CoveredLine implements Line, MutatableLine
     private $coveringTest = false;
     private $class = false;
     private $className;
+    private $executable = false;
 
     public function __construct($content)
     {
@@ -144,5 +145,21 @@ class CoveredLine implements Line, MutatableLine
     public function isEnabled()
     {
         return $this->isNeccessary() && $this->isCovered();
+    }
+
+    /**
+     * @param bool $executable
+     */
+    public function setExecutable($executable)
+    {
+        $this->executable = $executable;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExecutable()
+    {
+        return $this->executable;
     }
 }

@@ -50,10 +50,17 @@ interface Line
     /**
      * @return bool
      */
+    public function isExecutable();
+
+    /**
+     * @return bool
+     */
     public function isCovered();
 
     /**
      * @param string $test
      */
     public function addCoverage($test);
+
+    public function setExecutable($executable);
 }

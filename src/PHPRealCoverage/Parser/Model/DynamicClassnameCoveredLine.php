@@ -101,4 +101,17 @@ class DynamicClassnameCoveredLine implements Line
     {
         $this->line->addCoverage($test);
     }
+
+    /**
+     * @return bool
+     */
+    public function isExecutable()
+    {
+        return $this->line->isExecutable();
+    }
+
+    public function setExecutable($executable)
+    {
+        $this->line->setExecutable($executable);
+    }
 }
