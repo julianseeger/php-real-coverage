@@ -50,4 +50,46 @@ class CoveredLineTest extends PHPUnit_Framework_TestCase
         $line->setFinal(true);
         $this->assertEquals("//final something ", $line->getFilteredContent());
     }
+
+    public function enabledStateDataProvider()
+    {
+        return array(
+            array(false, false, false),
+            array(true, false, false),
+            array(true, true, true),
+            array(false, true, false)
+        );
+    }
+
+    /**
+     * @dataProvider enabledStateDataProvider
+     * @param $neccessary
+     * @param $covered
+     * @param $expectedEnabled
+     */
+    public function testIsEnabledWhenNeccessaryAndCovered($neccessary, $covered, $expectedEnabled)
+    {
+        $line = new CoveredLine("");
+        $line->setNeccessary($neccessary);
+        $line->setCovered($covered);
+        $this->assertEquals($expectedEnabled, $line->isEnabled());
+    }
+
+    public function testEnablingAndDisablingTriggersNeccessaryState()
+    {
+        $line = new CoveredLine("");
+        $line->setNeccessary(true);
+        $line->setCovered(true);
+        $this->assertTrue($line->isEnabled());
+
+        $line->disable();
+        $this->assertFalse($line->isEnabled());
+        $this->assertFalse($line->isNeccessary());
+        $this->assertTrue($line->isCovered());
+
+        $line->enable();
+        $this->assertTrue($line->isEnabled());
+        $this->assertTrue($line->isNeccessary());
+        $this->assertTrue($line->isCovered());
+    }
 }

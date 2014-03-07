@@ -4,9 +4,10 @@
 namespace PHPRealCoverage\Parser\Model;
 
 
+use PHPRealCoverage\Mutator\MutatableLine;
 use PHPRealCoverage\Proxy\Line;
 
-class CoveredLine implements Line
+class CoveredLine implements Line, MutatableLine
 {
     private $content;
     private $method = false;
@@ -125,5 +126,23 @@ class CoveredLine implements Line
     public function isCovered()
     {
         return $this->covered;
+    }
+
+    public function enable()
+    {
+        $this->setNeccessary(true);
+    }
+
+    public function disable()
+    {
+        $this->setNeccessary(false);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnabled()
+    {
+        return $this->isNeccessary() && $this->isCovered();
     }
 }
