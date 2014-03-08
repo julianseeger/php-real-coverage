@@ -42,10 +42,13 @@ And let php-real-coverage test the quality of your coverage
 ./vendor/bin/php-real-coverage coverage.php
 ```
 
-Roadmap to Version 1.0
-======================
+Roadmap to Version 0.1-Beta
+===========================
 * rewrite the prototype of RealCoverageRun (the "main" method)
 * pass appropriate arguments to phpunit
+
+Roadmap to Version 1.0
+======================
 * integrate symfony/console
 * run only those tests that cover the modified lines (huge speedup)
 * add hooks into main algorithm to allow listeners/printers/etc
