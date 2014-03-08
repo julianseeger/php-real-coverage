@@ -2,6 +2,7 @@
 
 namespace PHPRealCoverage\Parser;
 
+use PHPRealCoverage\Parser\Exception\ParserException;
 use PHPRealCoverage\Parser\Model\CoveredClass;
 use PHPRealCoverage\Parser\Model\CoveredLine;
 use PHPRealCoverage\Parser\Model\DynamicClassnameCoveredClass;
@@ -66,9 +67,11 @@ class ClassParser
         }
     }
 
-    private function parseNamespace($content)
+    public function parseNamespace($content)
     {
-        preg_match(self::NAMESPACE_PATTERN, $content, $matches);
+        if (!preg_match(self::NAMESPACE_PATTERN, $content, $matches)) {
+            throw new ParserException("Failed to parse Namespace of : \n" . $content);
+        }
         return $matches[1];
     }
 

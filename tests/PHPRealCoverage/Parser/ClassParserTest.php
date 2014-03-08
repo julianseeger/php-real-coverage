@@ -34,6 +34,15 @@ class ClassParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("PHPRealCoverage\\Parser", $class->getNamespace());
     }
 
+    /**
+     * @expectedException \PHPRealCoverage\Parser\Exception\ParserException
+     */
+    public function testParseNameThrowsExceptionIfNoneIsFound()
+    {
+        $class = "<?php\n\nclass ClassWithoudANamespace\n{\n}\n";
+        $this->parser->parseNamespace($class);
+    }
+
     public function parseClassNameDataProvider()
     {
         return array(
