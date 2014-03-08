@@ -28,6 +28,21 @@ class ParsingCoverageReaderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, count($classes));
     }
 
+    /**
+     * @expectedException \Exception
+     * @expectedExceptionMessage Failed to find line 1 in filename
+     */
+    public function testAddCoverageInterruptsWithVerboseInformationIfLineIsNotFound()
+    {
+        $class = $this->getMockForAbstractClass('PHPRealCoverage\Proxy\ClassMetadata');
+        $class->expects($this->any())
+            ->method('getLine')
+            ->will($this->returnValue(null));
+        $class->expects($this->any())->method('getFilename')->will($this->returnValue('filename'));
+        $reader = new ParsingCoverageReader();
+        $reader->addCoverage($class, array(1 => array("test")));
+    }
+
     public function testParseClassAddsCoverageInformation()
     {
         $filename = __DIR__ . '/../../fixture/ExampleTest.php';

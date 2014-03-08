@@ -29,10 +29,13 @@ class ParsingCoverageReader
         return $coveredClass;
     }
 
-    private function addCoverage(ClassMetadata $coveredClass, $coverageData)
+    public function addCoverage(ClassMetadata $coveredClass, $coverageData)
     {
         foreach ($coverageData as $lineNumber => $tests) {
             $line = $coveredClass->getLine($lineNumber);
+            if (is_null($line)) {
+                throw new \Exception("Failed to find line " . $lineNumber . " in " . $coveredClass->getFilename());
+            }
             $this->populateLine($line, $tests);
         }
     }
