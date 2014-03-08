@@ -2,6 +2,7 @@
 
 namespace PHPRealCoverage;
 
+use PHPRealCoverage\Parser\Exception\ParserException;
 use PHPRealCoverage\Parser\Model\CoveredLine;
 
 class ParsingCoverageReaderTest extends \PHPUnit_Framework_TestCase
@@ -11,6 +12,20 @@ class ParsingCoverageReaderTest extends \PHPUnit_Framework_TestCase
         $reader = new ParsingCoverageReader();
         $classes = $reader->parseReport($this->generateCoverageForFixture());
         $this->assertEquals(1, count($classes));
+    }
+
+    public function testParseReportsSkippsClassesWithParserExceptions()
+    {
+        $parser = $this->getMock('PHPRealCoverage\Parser\ClassParser');
+        $parser->expects($this->any())
+            ->method('parse')
+            ->will($this->throwException(new ParserException()));
+
+        $reader = new ParsingCoverageReader($parser);
+        ob_start();
+        $classes = $reader->parseReport($this->generateCoverageForFixture());
+        ob_end_clean();
+        $this->assertEquals(0, count($classes));
     }
 
     public function testParseClassAddsCoverageInformation()

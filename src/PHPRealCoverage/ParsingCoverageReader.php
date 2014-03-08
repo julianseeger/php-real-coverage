@@ -3,15 +3,28 @@
 namespace PHPRealCoverage;
 
 use PHPRealCoverage\Parser\ClassParser;
+use PHPRealCoverage\Parser\Exception\ParserException;
 use PHPRealCoverage\Proxy\ClassMetadata;
 use PHPRealCoverage\Proxy\Line;
 
 class ParsingCoverageReader
 {
+    /**
+     * @var ClassParser
+     */
+    private $parser;
+
+    public function __construct(ClassParser $parser = null)
+    {
+        if ($parser == null) {
+            $parser = new ClassParser();
+        }
+        $this->parser = $parser;
+    }
+
     public function parseClass($filename, array $coverageData)
     {
-        $parser = new ClassParser();
-        $coveredClass = $parser->parse($filename);
+        $coveredClass = $this->parser->parse($filename);
         $this->addCoverage($coveredClass, $coverageData);
         return $coveredClass;
     }
@@ -28,7 +41,11 @@ class ParsingCoverageReader
     {
         $classes = array();
         foreach ($report->getData() as $filename => $coverage) {
-            $classes[] = $this->parseClass($filename, $coverage);
+            try {
+                $classes[] = $this->parseClass($filename, $coverage);
+            } catch (ParserException $e) {
+                echo "Skipping class " . $filename . ", failed to parse";
+            }
         }
         return $classes;
     }
