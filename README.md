@@ -89,13 +89,18 @@ Roadmap to Version 1.0
 Limitations
 ===========
 * only works with phpunit
-  * looking forward to extend it for other frameworks, given there is an audience for it
+> looking forward to extend it for other frameworks, given there is an audience for it
+
 * only works with namespaced classes
-  * just use namespaces then... easy to fix, but seriously: use namespaces ;)
+> just use namespaces then... easy to fix, but seriously: use namespaces ;)
+
 * no support for phpunit 4
-  * as soon as phpunit 4 is stable, I will branch the support for 3.x and modify the trunk for phpunit 4
+> as soon as phpunit 4 is stable, I will branch the support for 3.x and modify the trunk for phpunit 4
+
 * maybe you will run into problems when you abuse reflections or dynamic loading in your project, so php-real-coverage probably won't work for doctrine, etc. But it is basically meant for straight-forward test-driven projects
 
+* no support for hhvm
+> I'm currently lacking any experience with hhvm, but as it seems to support phpunit I'm looking forward to change this.
 
 Contribute
 ==========
