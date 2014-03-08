@@ -34,7 +34,7 @@ class ParsingCoverageReader
         foreach ($coverageData as $lineNumber => $tests) {
             $line = $coveredClass->getLine($lineNumber);
             if (is_null($line)) {
-                throw new \Exception("Failed to find line " . $lineNumber . " in " . $coveredClass->getFilename());
+                throw new ParserException("Failed to find line " . $lineNumber . " in " . $coveredClass->getFilename());
             }
             $this->populateLine($line, $tests);
         }

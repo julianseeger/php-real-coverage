@@ -29,7 +29,7 @@ class ParsingCoverageReaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Exception
+     * @expectedException \PHPRealCoverage\Parser\Exception\ParserException
      * @expectedExceptionMessage Failed to find line 1 in filename
      */
     public function testAddCoverageInterruptsWithVerboseInformationIfLineIsNotFound()
