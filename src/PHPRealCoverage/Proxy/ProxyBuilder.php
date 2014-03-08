@@ -49,7 +49,7 @@ class ProxyBuilder
         }
         $proxyContent = $this->getProxyFooter($proxyContent);
 
-        $result = @eval($proxyContent) !== false;
+        @eval($proxyContent);
     }
 
     /**
