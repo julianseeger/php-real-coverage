@@ -47,7 +47,7 @@ class ParsingCoverageReader
             try {
                 $classes[] = $this->parseClass($filename, $coverage);
             } catch (ParserException $e) {
-                echo "Skipping class " . $filename . ", failed to parse";
+                echo "Skipping class " . $filename . ", failed to parse\n";
             }
         }
         return $classes;
