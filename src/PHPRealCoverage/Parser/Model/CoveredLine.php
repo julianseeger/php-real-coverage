@@ -83,6 +83,9 @@ class CoveredLine implements Line, MutatableLine
     public function getFilteredContent()
     {
         $content = $this->getContent();
+        if (trim($content) === '<?php') {
+            return "";
+        }
         if (!$this->neccessary) {
             $content = '//' . $content;
         }

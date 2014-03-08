@@ -24,7 +24,8 @@ class ParsingCoverageReaderTest extends \PHPUnit_Framework_TestCase
 
         $lines = $class->getLines();
         $class->setName($class->getName());
-        $this->assertEquals(file_get_contents($filename), (string)$class);
+        $expectedContent = str_replace('<?php', '', file_get_contents($filename));
+        $this->assertEquals($expectedContent, (string)$class);
 
         $this->assertFalse($lines[7]->isCovered());
         $this->assertFalse($lines[8]->isCovered());

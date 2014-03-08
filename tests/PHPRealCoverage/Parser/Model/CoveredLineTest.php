@@ -103,4 +103,10 @@ class CoveredLineTest extends PHPUnit_Framework_TestCase
         $line->addCoverage("bla");
         $this->assertTrue($line->isCovered());
     }
+
+    public function testToStringOmitsThePHPOpenTag()
+    {
+        $line0 = new CoveredLine("<?php");
+        $this->assertEquals("", (string)$line0);
+    }
 }
