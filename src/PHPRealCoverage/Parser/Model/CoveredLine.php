@@ -40,6 +40,9 @@ class CoveredLine implements Line, MutatableLine
         return $this->method;
     }
 
+    /**
+     * @param boolean $method
+     */
     public function setMethod($method)
     {
         $this->method = $method;
@@ -50,6 +53,9 @@ class CoveredLine implements Line, MutatableLine
         return $this->final;
     }
 
+    /**
+     * @param boolean $final
+     */
     public function setFinal($final)
     {
         $this->final = $final;
@@ -60,6 +66,9 @@ class CoveredLine implements Line, MutatableLine
         return $this->methodName;
     }
 
+    /**
+     * @param string $methodName
+     */
     public function setMethodName($methodName)
     {
         $this->methodName = $methodName;
@@ -101,6 +110,9 @@ class CoveredLine implements Line, MutatableLine
         return $this->class;
     }
 
+    /**
+     * @param boolean $isClass
+     */
     public function setClass($isClass)
     {
         $this->class = $isClass;

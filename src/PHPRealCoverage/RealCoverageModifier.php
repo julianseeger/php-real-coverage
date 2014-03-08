@@ -36,6 +36,9 @@ class RealCoverageModifier
         return $data;
     }
 
+    /**
+     * @param integer $lineNumber
+     */
     private function modifyClassData(ClassMetadata $class, $lineNumber, Line $line, $data)
     {
         $coverageInformation = $this->generateCoverageInformation($line);
