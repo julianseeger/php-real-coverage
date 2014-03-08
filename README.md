@@ -10,13 +10,17 @@ php-real-coverage
 Calculates the real coverage from an existing PHPUnit/CodeCoverage report
 
 Given you have a Class with 100% coverage
+
 ![](https://raw.github.com/julianseeger/php-real-coverage/master/readme-resources/unreal-coverage.png)
 
 But the appropriate test doesn't really test very much of it's behavior
+
 ![](https://raw.github.com/julianseeger/php-real-coverage/master/readme-resources/test.png)
 
 When you run php-real-coverage on this project
+
 Then you will know, what lines are actually tested
+
 ![](https://raw.github.com/julianseeger/php-real-coverage/master/readme-resources/real-coverage.png)
 
 In this example, only line 8, 12 and 18 are neccessary to make the test pass.
