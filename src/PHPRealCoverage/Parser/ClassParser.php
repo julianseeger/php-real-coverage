@@ -29,7 +29,9 @@ class ClassParser
 
     public function parseName($content)
     {
-        preg_match(self::CLASSNAME_PATTERN, $content, $matches);
+        if (!preg_match(self::CLASSNAME_PATTERN, $content, $matches)) {
+            throw new ParserException("Failed to parse name of: " . $content);
+        }
         return $matches[2];
     }
 
