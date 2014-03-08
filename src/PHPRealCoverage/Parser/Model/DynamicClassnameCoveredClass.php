@@ -2,9 +2,11 @@
 
 namespace PHPRealCoverage\Parser\Model;
 
+use PHPRealCoverage\Mutator\MutatableClass;
+use PHPRealCoverage\Mutator\MutatableLine;
 use PHPRealCoverage\Proxy\Line;
 
-class DynamicClassnameCoveredClass extends CoveredClass
+class DynamicClassnameCoveredClass extends CoveredClass implements MutatableClass
 {
     /**
      * @var DynamicClassnameCoveredLine
@@ -26,5 +28,19 @@ class DynamicClassnameCoveredClass extends CoveredClass
             $this->classLine = $line;
         }
         parent::addLine($lineNumber, $line);
+    }
+
+    /**
+     * @return MutatableLine[]
+     */
+    public function getMutatableLines()
+    {
+        $mutatableLines = array();
+        foreach ($this->getLines() as $line) {
+            if ($line->isCovered()) {
+                $mutatableLines[] = $line;
+            }
+        }
+        return $mutatableLines;
     }
 }

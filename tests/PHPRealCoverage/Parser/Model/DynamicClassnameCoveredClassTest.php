@@ -29,4 +29,17 @@ class DynamicClassnameCoveredClassTest extends \PHPUnit_Framework_TestCase
             $classAsString
         );
     }
+
+    public function testGetMutatableLinesReturnsCoveredLines()
+    {
+        $line0 = new CoveredLine("");
+        $line1 = new CoveredLine("");
+        $line1->addCoverage("");
+        $class = new DynamicClassnameCoveredClass();
+        $class->addLine(0, $line0);
+        $class->addLine(1, $line1);
+
+        $this->assertEquals(array($line1), $class->getMutatableLines());
+
+    }
 }
