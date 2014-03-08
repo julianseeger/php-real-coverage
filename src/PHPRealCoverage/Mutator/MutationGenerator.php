@@ -64,7 +64,7 @@ class MutationGenerator
     }
 
     /**
-     * @param $i
+     * @param integer $i
      */
     private function increaseMaxLineIfMaxLineIsReached($i)
     {
@@ -74,8 +74,8 @@ class MutationGenerator
     }
 
     /**
-     * @param $mutatableLines
-     * @param $i
+     * @param MutatableLine[] $mutatableLines
+     * @param integer $i
      * @return MutatableLine
      * @throws Exception\NoMoreMutationsException
      */
