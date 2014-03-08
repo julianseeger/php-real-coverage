@@ -46,7 +46,7 @@ class ProxyBuilder
         }
         $proxyContent = $this->getProxyFooter($proxyContent);
 
-        eval($proxyContent);
+        $result = @eval($proxyContent) !== false;
     }
 
     /**
@@ -57,13 +57,12 @@ class ProxyBuilder
         $proxyContent = "
         namespace $this->namespace;
         class $this->className extends $this->parentClass {
-            private static \$instanceClass;
+            private static \$instanceClass = '$this->parentClass';
             private \$instance;
             private \$constructorArguments;
 
             public function __construct()
             {
-                self::\$instanceClass = \"$this->parentClass\";
                 \$this->constructorArguments = func_get_args();
                 \$this->__PROXYcreateInstance(\$this->constructorArguments);
             }

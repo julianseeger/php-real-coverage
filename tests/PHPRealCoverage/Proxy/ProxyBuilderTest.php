@@ -20,10 +20,14 @@ class ProxyBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($proxy->returnTrue());
 
         if (!class_exists('PHPRealCoverage\\Proxy\\SomeExchangedClass')) {
-            include __DIR__ . '/SomeExchangedClass.php';
+            $exchangedCode = file_get_contents(__DIR__ . '/SomeExchangedClass.php');
+            $exchangedCode = str_replace('SomeBaseClass', 'SomeBaseClass_original', $exchangedCode);
+            $exchangedCode = str_replace('<?php', '', $exchangedCode);
+            $this->assertTrue(eval($exchangedCode) !== false);
         }
 
         SomeBaseClass::setInstanceClass('PHPRealCoverage\\Proxy\\SomeExchangedClass');
+        $proxy = new SomeBaseClass();
         $this->assertFalse($proxy->returnTrue());
     }
 
