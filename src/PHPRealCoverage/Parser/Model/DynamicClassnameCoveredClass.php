@@ -21,6 +21,9 @@ class DynamicClassnameCoveredClass extends CoveredClass implements MutatableClas
         parent::setName($name);
     }
 
+    /**
+     * @param integer $lineNumber
+     */
     public function addLine($lineNumber, Line $line)
     {
         if ($line->isClass()) {

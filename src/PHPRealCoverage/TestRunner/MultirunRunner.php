@@ -18,6 +18,10 @@ class MultirunRunner extends \PHPUnit_TextUI_TestRunner
         return $cacheContent;
     }
 
+    /**
+     * @param string $suiteClassFile
+     * @param string $suffixes
+     */
     private function getCacheKey($suiteClassName, $suiteClassFile, $suffixes)
     {
         $suffixString = is_array($suffixes) ? join(' ', $suffixes) : $suffixes;

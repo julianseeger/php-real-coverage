@@ -16,6 +16,7 @@ interface ClassMetadata
 
     /**
      * @param string $name
+     * @return void
      */
     public function setName($name);
 

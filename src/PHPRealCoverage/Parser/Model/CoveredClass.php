@@ -22,7 +22,7 @@ class CoveredClass implements ClassMetadata
     private $filename;
 
     /**
-     * @param mixed $name
+     * @param string $name
      */
     public function setName($name)
     {
@@ -57,6 +57,9 @@ class CoveredClass implements ClassMetadata
         return $this->namespace;
     }
 
+    /**
+     * @param string $namespace
+     */
     public function setNamespace($namespace)
     {
         $this->namespace = $namespace;

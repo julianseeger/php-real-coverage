@@ -10,7 +10,7 @@ class ProxyBuilder
     private $methods = array();
 
     /**
-     * @param mixed $className
+     * @param string $className
      */
     public function setClassName($className)
     {
@@ -18,7 +18,7 @@ class ProxyBuilder
     }
 
     /**
-     * @param mixed $namspace
+     * @param string $namspace
      */
     public function setNamespace($namspace)
     {
@@ -26,13 +26,16 @@ class ProxyBuilder
     }
 
     /**
-     * @param mixed $parentClass
+     * @param string $parentClass
      */
     public function setParentClass($parentClass)
     {
         $this->parentClass = $parentClass;
     }
 
+    /**
+     * @param string $method
+     */
     public function addMethod($method)
     {
         $this->methods[] = $method;
@@ -89,7 +92,7 @@ class ProxyBuilder
     }
 
     /**
-     * @param $proxyContent
+     * @param string $proxyContent
      * @return string
      */
     private function getProxyFooter($proxyContent)
