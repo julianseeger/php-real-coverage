@@ -3,6 +3,7 @@
 namespace PHPRealCoverage\Mutator;
 
 use PHPRealCoverage\Mutator\Exception\NoMoreMutationsException;
+use PHPRealCoverage\Parser\Model\CoveredLine;
 
 class MutatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -125,5 +126,59 @@ class MutatorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($line2->isEnabled());
         $this->assertFalse($line3->isEnabled());
         $this->assertFalse($line4->isEnabled());
+    }
+
+    public function testMutatorFindsLinesThatAreOnlyNeccessaryWhenAFollowingOneExists()
+    {
+        $line0 = new CoveredLine('$c=0;');
+        $line0->addCoverage("");
+        $line1 = new CoveredLine('$c++;');
+        $line1->addCoverage("");
+        $this->assertTrue($line0->isEnabled());
+        $this->assertTrue($line1->isEnabled());
+
+
+        $class = $this->mockClass(array($line0, $line1));
+        $generator = new MutationGenerator($class);
+        //tester will only validate if everything is enabled or line1 AND line3 are disabled
+        $validatorCallback = function () use ($line0, $line1) {
+            if ($line0->isEnabled()) {
+                return true;
+            }
+            return !$line1->isEnabled(); // line0 enabled or both disabled
+        };
+        $tester = $this->mockTester($validatorCallback);
+
+        $mutator = new Mutator();
+        $mutator->testMutations($tester, $generator);
+
+        $this->assertFalse($line0->isEnabled());
+        $this->assertFalse($line1->isEnabled());
+    }
+
+    /**
+     * @param $validatorCallback
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    private function mockTester($validatorCallback)
+    {
+        $tester = $this->getMockForAbstractClass('PHPRealCoverage\Mutator\MutationTester');
+        $tester->expects($this->any())
+            ->method('isValid')
+            ->will($this->returnCallback($validatorCallback));
+        return $tester;
+    }
+
+    /**
+     * @param $lines
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    private function mockClass($lines)
+    {
+        $class = $this->getMockForAbstractClass('PHPRealCoverage\Mutator\MutatableClass');
+        $class->expects($this->any())
+            ->method('getMutatableLines')
+            ->will($this->returnValue($lines));
+        return $class;
     }
 }

@@ -21,7 +21,7 @@ class Mutator
      * @param MutationTester $tester
      * @return bool
      */
-    private function findWorkingPermutation(array $commands, MutationTester $tester)
+    private function findWorkingPermutations(array $commands, MutationTester $tester)
     {
         if (empty($commands)) {
             return false;
@@ -34,12 +34,12 @@ class Mutator
         }
 
         $rest = array_slice($commands, 1);
-        if ($this->findWorkingPermutation($rest, $tester)) {
+        if ($this->findWorkingPermutations($rest, $tester)) {
             return true;
         }
 
         $lineToTest->undo();
-        return $this->findWorkingPermutation($rest, $tester);
+        return $this->findWorkingPermutations($rest, $tester);
     }
 
     /**
@@ -52,12 +52,11 @@ class Mutator
         $lineToTest = $commands[0];
         $lineToTest->execute();
 
+        $rest = array_slice($commands, 1);
+        $this->findWorkingPermutations($rest, $tester);
         if (!$tester->isValid()) {
-            $rest = array_slice($commands, 1);
-            if (!$this->findWorkingPermutation($rest, $tester)) {
-                foreach ($commands as $command) {
-                    $command->undo();
-                }
+            foreach ($commands as $command) {
+                $command->undo();
             }
         }
     }
