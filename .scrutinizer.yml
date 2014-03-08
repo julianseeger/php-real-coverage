@@ -1,16 +1,28 @@
 imports:
-    - php
-tools:
-    external_code_coverage: true
+  - php
 filter:
-    excluded_paths: [vendor/*, tests/*, app/*, bin/*, library/*]
+  excluded_paths: [vendor/*, tests/*, app/*, bin/*, library/*]
 
 tools:
-    # Copy/Paste Detector
-    php_cpd: true
+  # Copy/Paste Detector
+  php_cpd: true
 
-    # Metrics
-    php_pdepend: true
+  # Metrics
+  php_pdepend: true
 
-    # Some Metrics + Bug Detection/Auto-Fixes
-    php_analyzer: true
+  # Some Metrics + Bug Detection/Auto-Fixes
+  php_analyzer: true
+
+  php_mess_detector: true
+
+  php_cs_fixer:
+    config: { level: psr2 }
+
+  php_code_sniffer:
+    config:
+      standard: PSR2
+
+  php_code_coverage: true
+
+before_commands:
+  - "composer install --prefer-dist --dev"
