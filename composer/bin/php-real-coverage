@@ -1,0 +1,16 @@
+#!/usr/bin/env php
+<?php
+$files = array(
+  __DIR__ . '/../../vendor/autoload.php',
+  __DIR__ . '/../../../../autoload.php'
+);
+
+foreach ($files as $file) {
+    if (file_exists($file)) {
+        require $file;
+        break;
+    }
+}
+
+$run = new PHPRealCoverage\RealCoverageRun();
+$run->run('coverage.php', 'coverage-html');

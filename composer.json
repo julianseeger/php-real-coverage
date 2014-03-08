@@ -9,6 +9,9 @@
       "email": "seeger.julian@gmail.com"
     }
   ],
+  "bin": [
+    "composer/bin/phpunit"
+  ],
   "require": {
     "phpunit/phpunit": "<4"
   },
