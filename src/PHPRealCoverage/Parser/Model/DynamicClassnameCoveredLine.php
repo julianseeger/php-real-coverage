@@ -2,9 +2,10 @@
 
 namespace PHPRealCoverage\Parser\Model;
 
+use PHPRealCoverage\Mutator\MutatableLine;
 use PHPRealCoverage\Proxy\Line;
 
-class DynamicClassnameCoveredLine implements Line
+class DynamicClassnameCoveredLine implements Line, MutatableLine
 {
     /**
      * @var Line
@@ -118,5 +119,21 @@ class DynamicClassnameCoveredLine implements Line
     public function getCoverage()
     {
         return $this->line->getCoverage();
+    }
+
+    public function enable()
+    {
+    }
+
+    public function disable()
+    {
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnabled()
+    {
+        return true;
     }
 }

@@ -55,4 +55,22 @@ class DynamicClassnameCoveredLineTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($sut->isExecutable());
         $this->assertFalse($line->isExecutable());
     }
+
+    public function testDynamicClassnameCoveredLineIgnoresEnabling()
+    {
+        $line = new CoveredLine("");
+        $line->addCoverage("");
+        $dynamicLine = new DynamicClassnameCoveredLine($line);
+
+        $this->assertTrue($line->isEnabled());
+        $this->assertTrue($dynamicLine->isEnabled());
+
+        $dynamicLine->disable();
+        $this->assertTrue($line->isEnabled());
+        $this->assertTrue($dynamicLine->isEnabled());
+
+        $dynamicLine->enable();
+        $this->assertTrue($line->isEnabled());
+        $this->assertTrue($dynamicLine->isEnabled());
+    }
 }
