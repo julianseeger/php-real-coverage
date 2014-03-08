@@ -78,7 +78,7 @@ class ClassParser
     }
 
     /**
-     * @param $content
+     * @param string $content
      * @return DynamicClassnameCoveredClass
      */
     public function parseString($content)

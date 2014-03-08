@@ -39,6 +39,7 @@ interface Line
 
     /**
      * @param bool $neccessary
+     * @return void
      */
     public function setNeccessary($neccessary);
 
@@ -59,9 +60,13 @@ interface Line
 
     /**
      * @param string $test
+     * @return void
      */
     public function addCoverage($test);
 
+    /**
+     * @return void
+     */
     public function setExecutable($executable);
 
     public function getCoverage();

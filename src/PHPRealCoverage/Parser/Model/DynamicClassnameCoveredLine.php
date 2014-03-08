@@ -67,6 +67,9 @@ class DynamicClassnameCoveredLine implements Line, MutatableLine
         $this->line->setNeccessary($neccessary);
     }
 
+    /**
+     * @param string $className
+     */
     public function setClassName($className)
     {
         $this->className = $className;

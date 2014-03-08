@@ -50,8 +50,8 @@ class MutationGenerator
     }
 
     /**
-     * @param $mutatableLines
-     * @param $i
+     * @param MutatableLine[] $mutatableLines
+     * @param integer $i
      * @return bool
      */
     private function maxLineReached($mutatableLines, $i)
