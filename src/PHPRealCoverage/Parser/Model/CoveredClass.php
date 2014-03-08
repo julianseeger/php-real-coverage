@@ -19,6 +19,8 @@ class CoveredClass implements ClassMetadata
     private $lines = array();
     private $namespace;
 
+    private $filename;
+
     /**
      * @param mixed $name
      */
@@ -81,5 +83,21 @@ class CoveredClass implements ClassMetadata
     public function getLine($lineNumber)
     {
         return $this->lines[$lineNumber];
+    }
+
+    /**
+     * @param mixed $filename
+     */
+    public function setFilename($filename)
+    {
+        $this->filename = $filename;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFilename()
+    {
+        return $this->filename;
     }
 }

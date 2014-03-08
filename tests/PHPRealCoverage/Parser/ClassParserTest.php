@@ -18,6 +18,7 @@ class ClassParserTest extends \PHPUnit_Framework_TestCase
     {
         $parsedClass = $this->parser->parse(__DIR__ . '/SampleClass.php');
         $this->assertEquals("SampleClass", $parsedClass->getName());
+        $this->assertEquals(__DIR__ . '/SampleClass.php', $parsedClass->getFilename());
     }
 
     public function testParseString()

@@ -21,7 +21,9 @@ class ClassParser
     {
         $content = file_get_contents($filename);
 
-        return $this->parseString($content);
+        $class = $this->parseString($content);
+        $class->setFilename($filename);
+        return $class;
     }
 
     public function parseName($content)

@@ -7,6 +7,11 @@ interface ClassMetadata
     /**
      * @return string
      */
+    public function getFilename();
+
+    /**
+     * @return string
+     */
     public function getName();
 
     /**
