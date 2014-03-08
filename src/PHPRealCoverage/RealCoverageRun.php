@@ -35,6 +35,7 @@ class RealCoverageRun
             $writer->write($class);
         }
 
+        echo "\n\nWriting coverage report to " . $output . "\n";
         $htmlWriter = new \PHP_CodeCoverage_Report_HTML();
         $htmlWriter->process($report, $output);
     }
