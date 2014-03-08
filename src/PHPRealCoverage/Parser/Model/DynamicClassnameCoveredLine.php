@@ -114,4 +114,9 @@ class DynamicClassnameCoveredLine implements Line
     {
         $this->line->setExecutable($executable);
     }
+
+    public function getCoverage()
+    {
+        return $this->line->getCoverage();
+    }
 }

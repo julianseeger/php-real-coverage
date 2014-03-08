@@ -40,6 +40,7 @@ class DynamicClassnameCoveredLineTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($sut->isCovered());
         $this->assertTrue($sut->isExecutable());
         $this->assertTrue($line->isExecutable());
+        $this->assertEquals(array(), $line->getCoverage());
 
         $sut->setNeccessary(true);
         $this->assertTrue($sut->isNeccessary());
@@ -48,6 +49,7 @@ class DynamicClassnameCoveredLineTest extends \PHPUnit_Framework_TestCase
         $sut->addCoverage("");
         $this->assertTrue($sut->isCovered());
         $this->assertTrue($line->isCovered());
+        $this->assertEquals(array(""), $line->getCoverage());
 
         $sut->setExecutable(false);
         $this->assertFalse($sut->isExecutable());

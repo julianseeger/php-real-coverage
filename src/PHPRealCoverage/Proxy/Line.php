@@ -63,4 +63,6 @@ interface Line
     public function addCoverage($test);
 
     public function setExecutable($executable);
+
+    public function getCoverage();
 }

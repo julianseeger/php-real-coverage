@@ -24,10 +24,10 @@ class ParsingCoverageReader
         }
     }
 
-    public function parseReport(\PHP_CodeCoverage $generateCoverageForFixture)
+    public function parseReport(\PHP_CodeCoverage $report)
     {
         $classes = array();
-        foreach ($generateCoverageForFixture->getData() as $filename => $coverage) {
+        foreach ($report->getData() as $filename => $coverage) {
             $classes[] = $this->parseClass($filename, $coverage);
         }
         return $classes;
