@@ -3,7 +3,8 @@ language: php
 php:
   - 5.5
   - 5.4
-  - hhvm
+#  - hhvm
+# hhvm is unsupported since PHP_CodeCoverage requires xdebug previous to phpunit 4
 
 before_script:
   - composer install --prefer-dist --dev
@@ -12,4 +13,4 @@ before_script:
 after_script:
   - /bin/bash -e ensureCoverage.sh coverage.text
   - wget https://scrutinizer-ci.com/ocular.phar
-  - php -v | grep -v "PHP 5.5" || php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
