@@ -16,7 +16,7 @@ class RealCoverageRun
         $reader = new ParsingCoverageReader();
         $classes = $reader->parseReport($report);
         $mutator = new Mutator();
-        $testRunner = new PHPUnitRunner(new MultirunTestCommand(), array());
+        $testRunner = new PHPUnitRunner(new MultirunTestCommand(), array('tests', 'tests'));
         $writer = new RealCoverageModifier($report);
 
         foreach ($classes as $class) {
