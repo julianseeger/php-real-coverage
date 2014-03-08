@@ -31,22 +31,22 @@ class MutationGenerator
         $mutatableLines = $this->class->getMutatableLines();
 
         for ($i = 0; $i <= $this->curentLine; $i++) {
-            if ($this->maxLineReached($mutatableLines, $i)) {
-                throw new NoMoreMutationsException();
-            }
-            $line = $mutatableLines[$i];
-
-            if (!$line->isEnabled()) {
-                if ($i == $this->curentLine) {
-                    $this->curentLine++;
-                }
-                continue;
-            }
-
-            $affectedLines[] = new DefaultMutationCommand($line);
+            $this->addCommandForLine($i, $mutatableLines, $affectedLines);
         }
         $this->curentLine++;
         return array_reverse($affectedLines);
+    }
+
+    public function addCommandForLine($lineNumber, $mutatableLines, &$affectedLines)
+    {
+        $line = $this->getLine($mutatableLines, $lineNumber);
+
+        if (!$line->isEnabled()) {
+            $this->increaseMaxLineIfMaxLineIsReached($lineNumber);
+            return;
+        }
+
+        $affectedLines[] = new DefaultMutationCommand($line);
     }
 
     /**
@@ -57,5 +57,30 @@ class MutationGenerator
     private function maxLineReached($mutatableLines, $i)
     {
         return !isset($mutatableLines[$i]);
+    }
+
+    /**
+     * @param $i
+     */
+    private function increaseMaxLineIfMaxLineIsReached($i)
+    {
+        if ($i == $this->curentLine) {
+            $this->curentLine++;
+        }
+    }
+
+    /**
+     * @param $mutatableLines
+     * @param $i
+     * @return mixed
+     * @throws Exception\NoMoreMutationsException
+     */
+    private function getLine($mutatableLines, $i)
+    {
+        if ($this->maxLineReached($mutatableLines, $i)) {
+            throw new NoMoreMutationsException();
+        }
+        $line = $mutatableLines[$i];
+        return $line;
     }
 }
