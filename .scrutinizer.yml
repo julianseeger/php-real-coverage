@@ -1,7 +1,7 @@
 imports:
   - php
 filter:
-  excluded_paths: [vendor/*, tests/*, app/*, bin/*, library/*]
+  excluded_paths: [vendor/*, tests/*, app/*, bin/*, library/*, fixture/*]
 
 tools:
   # Copy/Paste Detector
