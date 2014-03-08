@@ -102,7 +102,7 @@ class ProxyBuilder
     }
 
     /**
-     * @param $method
+     * @param string $method
      * @internal param $proxyContent
      * @return string
      */

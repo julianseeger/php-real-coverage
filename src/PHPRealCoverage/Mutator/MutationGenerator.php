@@ -37,6 +37,10 @@ class MutationGenerator
         return array_reverse($affectedLines);
     }
 
+    /**
+     * @param integer $lineNumber
+     * @param MutatableLine[] $mutatableLines
+     */
     public function addCommandForLine($lineNumber, $mutatableLines, &$affectedLines)
     {
         $line = $this->getLine($mutatableLines, $lineNumber);
@@ -72,7 +76,7 @@ class MutationGenerator
     /**
      * @param $mutatableLines
      * @param $i
-     * @return mixed
+     * @return MutatableLine
      * @throws Exception\NoMoreMutationsException
      */
     private function getLine($mutatableLines, $i)

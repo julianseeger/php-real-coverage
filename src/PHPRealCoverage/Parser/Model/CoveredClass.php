@@ -30,13 +30,16 @@ class CoveredClass implements ClassMetadata
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @param integer $lineNumber
+     */
     public function addLine($lineNumber, Line $line)
     {
         $this->lines[$lineNumber] = $line;
