@@ -21,6 +21,7 @@ class RealCoverageRun
 
         foreach ($classes as $class) {
             $proxy = new Proxy($class);
+            $proxy->load();
             $tester = new ProxiedMutationTester($proxy, $class, $testRunner);
             if (!$tester->isValid()) {
                 throw new \Exception("Tester did not reach a valid state before mutation");
