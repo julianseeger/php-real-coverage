@@ -13,6 +13,7 @@ class Mutator
                 $this->iterate($tester, $generator);
             }
         } catch (NoMoreMutationsException $e) {
+            // stop when all permutations have been tested
         }
     }
 
