@@ -46,7 +46,7 @@ class MutationGenerator
             $affectedLines[] = new DefaultMutationCommand($line);
         }
         $this->curentLine++;
-        return $affectedLines;
+        return array_reverse($affectedLines);
     }
 
     /**
