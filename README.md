@@ -14,7 +14,18 @@ Given you have a Class with 100% coverage
 
 But the appropriate test doesn't really test very much of it's behavior
 
-![](https://raw.github.com/julianseeger/php-real-coverage/master/readme-resources/test.png)
+```php
+class SomeClassTest extends \PHPUnit_Framework_TestCase
+{
+    public function testThisTestIsStupid()
+    {
+        $sut = new SomeClass();
+        $instance = $sut->someFunction();
+
+        $this->assertEquals("important message!!!", $instance);
+    }
+}
+```
 
 When you run **php-real-coverage** on this project
 
@@ -54,6 +65,16 @@ Roadmap to Version 1.0
 * add hooks into main algorithm to allow listeners/printers/etc
 * support all default phpunit coverage writers (html, text, clover, php)
 * review and restructure the architecture
+
+Limitations
+===========
+* only works with phpunit
+  * looking forward to extend it for other frameworks, given there is an audience for it
+* only works with namespaced classes
+  * just use namespaces then... easy to fix, but seriously: use namespaces ;)
+* no support for phpunit 4
+  * as soon as phpunit 4 is stable, I will branch the support for 3.x and modify the trunk for phpunit 4
+* maybe you will run into problems when you abuse reflections or dynamic loading in your project, so php-real-coverage probably won't work for doctrine, etc. But it is basically meant for straight-forward test-driven projects
 
 
 Contribute
