@@ -8,11 +8,27 @@
 What is "real" coverage?
 ========================
 
-Given you have a Class with 100% coverage
+Given you have a simple class
+```php
+class SomeClass {
+    public function someFunction()
+    {
+        $instance = "important message";
+        $a = "This code";
+        $b = "is completely";
+        $c = "usesless";
+        $instance .= "!!!";
+        if (true) {
+            $f = "and has";
+            $g = "100% coverage";
+        }
+        $c .= "!";
+        return $instance;
+    }
+}
+```
 
-![](https://raw.github.com/julianseeger/php-real-coverage/master/readme-resources/unreal-coverage.png)
-
-But the appropriate test doesn't really test very much of it's behavior
+And a pretty useless test for this class, that leaves most of the behavior untested
 
 ```php
 class SomeClassTest extends \PHPUnit_Framework_TestCase
@@ -26,6 +42,10 @@ class SomeClassTest extends \PHPUnit_Framework_TestCase
     }
 }
 ```
+
+But nevertheless, the test produces 100% coverage for this class
+
+![](https://raw.github.com/julianseeger/php-real-coverage/master/readme-resources/unreal-coverage.png)
 
 When you run **php-real-coverage** on this project
 
