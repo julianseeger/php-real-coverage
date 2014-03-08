@@ -10,7 +10,7 @@
     }
   ],
   "bin": [
-    "composer/bin/phpunit"
+    "composer/bin/php-real-coverage"
   ],
   "require": {
     "phpunit/phpunit": "<4"
