@@ -1,2 +1,16 @@
+imports:
+    - php
 tools:
     external_code_coverage: true
+filter:
+    excluded_paths: [vendor/*, tests/*, app/*, bin/*, library/*]
+
+tools:
+    # Copy/Paste Detector
+    php_cpd: true
+
+    # Metrics
+    php_pdepend: true
+
+    # Some Metrics + Bug Detection/Auto-Fixes
+    php_analyzer: true
