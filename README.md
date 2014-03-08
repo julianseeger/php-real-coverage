@@ -8,8 +8,6 @@
 What is "real" coverage?
 ========================
 
-Calculates the real coverage from an existing PHPUnit/CodeCoverage report
-
 Given you have a Class with 100% coverage
 
 ![](https://raw.github.com/julianseeger/php-real-coverage/master/readme-resources/unreal-coverage.png)
@@ -18,7 +16,7 @@ But the appropriate test doesn't really test very much of it's behavior
 
 ![](https://raw.github.com/julianseeger/php-real-coverage/master/readme-resources/test.png)
 
-When you run php-real-coverage on this project
+When you run **php-real-coverage** on this project
 
 Then you will know, what lines are actually tested
 
@@ -51,6 +49,7 @@ Roadmap to Version 1.0
 * integrate symfony/console
 * run only those tests that cover the modified lines (huge speedup)
 * add hooks into main algorithm to allow listeners/printers/etc
+* support all default phpunit coverage writers (html, text, clover, php)
 * review and restructure the architecture
 
 
@@ -69,4 +68,4 @@ Execute the the tests again
 
 And make your Pull Request
 
-PS: The build will fail if the testcoverage falls below 100%
+~~PS: The build will fail if the testcoverage falls below 100%~~
