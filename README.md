@@ -4,8 +4,8 @@
 
 WIP (the appropriate runner is still missing)
 
-php-real-coverage
-=================
+What is "real" coverage?
+========================
 
 Calculates the real coverage from an existing PHPUnit/CodeCoverage report
 
@@ -25,7 +25,7 @@ Then you will know, what lines are actually tested
 
 In this example, only line 8, 12 and 18 are neccessary to make the test pass.
 
-quickstart
+QuickStart
 ==========
 
 Add it to your composer.json
@@ -43,7 +43,17 @@ And let php-real-coverage test the quality of your coverage
 ./vendor/bin/php-real-coverage coverage.php
 ```
 
-contribute
+Roadmap to Version 1.0
+======================
+* rewrite the prototype of RealCoverageRun (the "main" method)
+* pass appropriate arguments to phpunit
+* integrate symfony/console
+* run only those tests that cover the modified lines (huge speedup)
+* add hooks into main algorithm to allow listeners/printers/etc
+* review and restructure the architecture
+
+
+Contribute
 ==========
 
 Execute the tests
