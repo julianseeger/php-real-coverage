@@ -27,6 +27,9 @@ class ClassParser
         return $class;
     }
 
+    /**
+     * @param string $content
+     */
     public function parseName($content)
     {
         if (!preg_match(self::CLASSNAME_PATTERN, $content, $matches)) {
@@ -69,6 +72,9 @@ class ClassParser
         }
     }
 
+    /**
+     * @param string $content
+     */
     public function parseNamespace($content)
     {
         if (!preg_match(self::NAMESPACE_PATTERN, $content, $matches)) {
