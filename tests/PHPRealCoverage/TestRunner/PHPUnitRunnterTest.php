@@ -45,4 +45,27 @@ class PHPUnitRunnterTest extends \PHPUnit_Framework_TestCase
         $tester = new PHPUnitRunner($runner, array());
         $this->assertEquals($valid, $tester->isValid());
     }
+
+    public function testMutataionTesterBlocksPhpunitOutput()
+    {
+        // arrange
+        $runner = $this->getMockBuilder('PHPRealCoverage\TestRunner\MultirunTestCommand')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $runner->expects($this->once())
+            ->method('run')
+            ->will(
+                $this->returnCallback(
+                    function () {
+                        echo "output";
+                    }
+                )
+            );
+
+        ob_start();
+        $tester = new PHPUnitRunner($runner, array());
+        $tester->isValid();
+        $output = ob_get_clean();
+        $this->assertEmpty($output);
+    }
 }
