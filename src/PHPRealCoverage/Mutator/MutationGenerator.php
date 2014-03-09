@@ -40,6 +40,7 @@ class MutationGenerator
     /**
      * @param integer $lineNumber
      * @param MutatableLine[] $mutatableLines
+     * @param $affectedLines
      */
     public function addCommandForLine($lineNumber, $mutatableLines, &$affectedLines)
     {
@@ -55,36 +56,36 @@ class MutationGenerator
 
     /**
      * @param MutatableLine[] $mutatableLines
-     * @param integer $i
+     * @param integer $processedLine
      * @return bool
      */
-    private function maxLineReached($mutatableLines, $i)
+    private function maxLineReached($mutatableLines, $processedLine)
     {
-        return !isset($mutatableLines[$i]);
+        return !isset($mutatableLines[$processedLine]);
     }
 
     /**
-     * @param integer $i
+     * @param integer $processedLine
      */
-    private function increaseMaxLineIfMaxLineIsReached($i)
+    private function increaseMaxLineIfMaxLineIsReached($processedLine)
     {
-        if ($i == $this->curentLine) {
+        if ($processedLine == $this->curentLine) {
             $this->curentLine++;
         }
     }
 
     /**
      * @param MutatableLine[] $mutatableLines
-     * @param integer $i
+     * @param integer $requestedLine
      * @return MutatableLine
      * @throws Exception\NoMoreMutationsException
      */
-    private function getLine($mutatableLines, $i)
+    private function getLine($mutatableLines, $requestedLine)
     {
-        if ($this->maxLineReached($mutatableLines, $i)) {
+        if ($this->maxLineReached($mutatableLines, $requestedLine)) {
             throw new NoMoreMutationsException();
         }
-        $line = $mutatableLines[$i];
+        $line = $mutatableLines[$requestedLine];
         return $line;
     }
 }
