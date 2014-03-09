@@ -72,5 +72,14 @@ tools:
   php_code_sniffer:
     config:
       standard: PSR2
+    filter:
+      paths: ["src/*", "tests/*"]
+
+  php_loc:
+    enabled: true
+    excluded_dirs: ["fixture", "composer", "readme-resources"]
 
   php_code_coverage: true
+
+before_commands:
+    - "composer install --dev --prefer-dist"
