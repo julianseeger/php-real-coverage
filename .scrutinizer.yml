@@ -76,4 +76,4 @@ tools:
   php_code_coverage: true
 
 before_commands:
-  - 'composer install --no-interaction --prefer-dist --dev"
+  - 'composer install --no-interaction --prefer-dist --dev'
