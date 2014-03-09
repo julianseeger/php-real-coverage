@@ -23,7 +23,7 @@ class RealCoverageRun
         $classCounter = 0;
         /** @var ClassMetadata $class */
         foreach ($classes as $class) {
-            echo (int)(++$classCounter * 100 / count($classes)) . "%: Processing " . $class->getName() . "\r";
+            echo (int)(++$classCounter * 100 / count($classes)) . "%: Processing " . $class->getName() . "\n";
             $proxy = new Proxy($class);
             $proxy->load();
             $tester = new ProxiedMutationTester($proxy, $class, $testRunner);

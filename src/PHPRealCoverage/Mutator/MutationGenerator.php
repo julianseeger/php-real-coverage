@@ -88,4 +88,9 @@ class MutationGenerator
         $line = $mutatableLines[$requestedLine];
         return $line;
     }
+
+    public function getProgress()
+    {
+        return $this->curentLine / count($this->class->getMutatableLines());
+    }
 }

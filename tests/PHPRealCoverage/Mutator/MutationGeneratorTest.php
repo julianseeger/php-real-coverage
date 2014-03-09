@@ -49,6 +49,20 @@ class MutationGeneratorTest extends \PHPUnit_Framework_TestCase
         return $property->getValue($command);
     }
 
+    public function testGeneratorKnowsItsProgress()
+    {
+        $this->assertEquals(0.0 / 3.0, $this->mutator->getProgress());
+
+        $this->mutator->getMutationStack();
+        $this->assertEquals(1.0 / 3.0, $this->mutator->getProgress());
+
+        $this->mutator->getMutationStack();
+        $this->assertEquals(2.0 / 3.0, $this->mutator->getProgress());
+
+        $this->mutator->getMutationStack();
+        $this->assertEquals(3.0 / 3.0, $this->mutator->getProgress());
+    }
+
     public function testMutatorCreatesMutationStackForLine1()
     {
         $stack1 = $this->mutator->getMutationStack();
