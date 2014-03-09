@@ -9,20 +9,21 @@ What is "real" coverage?
 
 Given you have a simple class
 ```php
-class SomeClass {
+class SomeClass
+{
     public function someFunction()
     {
-        $instance = "important message";
+        $instance = "important message";    // this line is important
         $a = "This code";
         $b = "is completely";
         $c = "usesless";
-        $instance .= "!!!";
+        $instance .= "!!!";                 // this one is important too
         if (true) {
             $f = "and has";
             $g = "100% coverage";
         }
         $c .= "!";
-        return $instance;
+        return $instance;                   // and this one is important
     }
 }
 ```
