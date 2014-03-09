@@ -80,9 +80,9 @@ class DynamicClassnameCoveredLine implements Line, MutatableLine
         return $this->className;
     }
 
-    private function replaceClassname($__toString)
+    private function replaceClassname($lineContent)
     {
-        return str_replace($this->line->getClassName(), $this->className, $__toString);
+        return str_replace($this->line->getClassName(), $this->className, $lineContent);
     }
 
     public function isNeccessary()
