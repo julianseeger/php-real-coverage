@@ -4,6 +4,7 @@ namespace PHPRealCoverage;
 
 use PHPRealCoverage\Mutator\MutationGenerator;
 use PHPRealCoverage\Mutator\Mutator;
+use PHPRealCoverage\Proxy\ClassMetadata;
 use PHPRealCoverage\Proxy\Proxy;
 use PHPRealCoverage\TestRunner\MultirunTestCommand;
 use PHPRealCoverage\TestRunner\PHPUnitRunner;
@@ -19,7 +20,10 @@ class RealCoverageRun
         $testRunner = new PHPUnitRunner(new MultirunTestCommand(), array('tests', 'tests'));
         $writer = new RealCoverageModifier($report);
 
+        $classCounter = 0;
+        /** @var ClassMetadata $class */
         foreach ($classes as $class) {
+            echo (int)($classCounter * 100 / count($classes)) . "%: Processing " . $class->getName() . "\r";
             $proxy = new Proxy($class);
             $proxy->load();
             $tester = new ProxiedMutationTester($proxy, $class, $testRunner);
