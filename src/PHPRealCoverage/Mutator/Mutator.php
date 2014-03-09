@@ -10,6 +10,10 @@ class Mutator
     {
         try {
             while (true) {
+                $progress = $generator->getProgress();
+                if (!is_null($progress)) {
+                    echo "Mutation Progress: " . (int)(100 * $progress) . "%\r";
+                }
                 $this->iterate($tester, $generator);
             }
         } catch (NoMoreMutationsException $e) {

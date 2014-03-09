@@ -21,15 +21,23 @@ class MutatorTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $generator->expects($this->at(0))
+            ->method('getProgress')
+            ->will($this->returnValue(0));
+        $generator->expects($this->at(1))
             ->method('getMutationStack')
             ->will($this->returnValue(array($command)));
-        $generator->expects($this->at(1))
+        $generator->expects($this->at(2))
+            ->method('getProgress')
+            ->will($this->returnValue(1));
+        $generator->expects($this->at(3))
             ->method('getMutationStack')
             ->will($this->throwException(new NoMoreMutationsException()));
 
         // act
         $mutator = new Mutator();
+        ob_start();
         $mutator->testMutations($tester, $generator);
+        ob_end_clean();
 
         // assert
         $this->assertFalse($line->isEnabled());
