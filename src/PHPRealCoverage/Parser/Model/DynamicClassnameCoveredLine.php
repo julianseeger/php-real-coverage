@@ -139,4 +139,9 @@ class DynamicClassnameCoveredLine implements Line, MutatableLine
     {
         return true;
     }
+
+    public function isConstructor()
+    {
+        return $this->line->isConstructor();
+    }
 }

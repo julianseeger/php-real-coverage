@@ -41,6 +41,10 @@ class DynamicClassnameCoveredLineTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($sut->isExecutable());
         $this->assertTrue($line->isExecutable());
         $this->assertEquals(array(), $sut->getCoverage());
+        $this->assertFalse($line->isConstructor());
+
+        $line->setMethodName('__construct');
+        $this->assertTrue($line->isConstructor());
 
         $sut->setNeccessary(true);
         $this->assertTrue($sut->isNeccessary());

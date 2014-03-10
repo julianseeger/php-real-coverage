@@ -41,6 +41,26 @@ class CoveredClassTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testGetMethodSkippsConstructor()
+    {
+        $line1 = new CoveredLine("line1");
+        $line1->setMethod(true);
+        $line1->setMethodName("method1");
+
+        $line2 = new CoveredLine("line2");
+        $line2->setMethod(true);
+        $line2->setMethodName("__construct");
+
+        $class = new CoveredClass();
+        $class->addLine(1, $line1);
+        $class->addLine(2, $line2);
+
+        $this->assertEquals(
+            array('method1'),
+            $class->getMethods()
+        );
+    }
+
     public function testGetLine()
     {
         $line0 = new CoveredLine("line0");

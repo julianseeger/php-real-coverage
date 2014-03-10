@@ -182,4 +182,9 @@ class CoveredLine implements Line, MutatableLine
     {
         return $this->coveringTests;
     }
+
+    public function isConstructor()
+    {
+        return $this->isMethod() && strpos($this->getMethodName(), '__construct') === 0;
+    }
 }

@@ -70,4 +70,6 @@ interface Line
     public function setExecutable($executable);
 
     public function getCoverage();
+
+    public function isConstructor();
 }

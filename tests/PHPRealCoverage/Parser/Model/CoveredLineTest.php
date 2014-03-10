@@ -109,4 +109,13 @@ class CoveredLineTest extends PHPUnit_Framework_TestCase
         $line0 = new CoveredLine("<?php");
         $this->assertEquals("", (string)$line0);
     }
+
+    public function testMethodKnowsIfItsAConstructor()
+    {
+        $line = new CoveredLine("");
+        $line->setMethod(true);
+        $line->setMethodName('__construct');
+
+        $this->assertTrue($line->isConstructor());
+    }
 }

@@ -75,7 +75,7 @@ class CoveredClass implements ClassMetadata
     {
         $methods = array();
         foreach ($this->lines as $line) {
-            if ($line->isMethod()) {
+            if ($line->isMethod() && !$line->isConstructor()) {
                 $methods[] = $line->getMethodName();
             }
         }
