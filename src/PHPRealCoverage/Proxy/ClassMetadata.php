@@ -46,5 +46,8 @@ interface ClassMetadata
      */
     public function __toString();
 
+    /**
+     * @return boolean
+     */
     public function isCovered();
 }
