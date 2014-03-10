@@ -53,4 +53,19 @@ class CoveredClassTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($line0, $class->getLine(0));
         $this->assertEquals($line1, $class->getLine(1));
     }
+
+    public function testClassKnowsIfALineHasCoverage()
+    {
+        $line0 = new CoveredLine("line0");
+        $line1 = new CoveredLine("line1");
+
+        $class = new CoveredClass();
+        $class->addLine(0, $line0);
+        $class->addLine(1, $line1);
+
+        $this->assertFalse($class->isCovered());
+
+        $line0->addCoverage("");
+        $this->assertTrue($class->isCovered());
+    }
 }

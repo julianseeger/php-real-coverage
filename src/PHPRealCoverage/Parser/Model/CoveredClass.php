@@ -106,4 +106,15 @@ class CoveredClass implements ClassMetadata
     {
         return $this->filename;
     }
+
+    public function isCovered()
+    {
+        foreach ($this->getLines() as $line) {
+            if ($line->isCovered()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
