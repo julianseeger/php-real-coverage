@@ -88,7 +88,7 @@ class CoveredClass implements ClassMetadata
      */
     public function getLine($lineNumber)
     {
-        return $this->lines[$lineNumber];
+        return @$this->lines[$lineNumber];
     }
 
     /**

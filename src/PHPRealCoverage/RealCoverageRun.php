@@ -23,6 +23,9 @@ class RealCoverageRun
         $classCounter = 0;
         /** @var ClassMetadata $class */
         foreach ($classes as $class) {
+            if (!$class->isCovered()) {
+                continue;
+            }
             echo "\n" . (int)(++$classCounter * 100 / count($classes)) . "%: Processing " . $class->getName() . "\n";
             $proxy = new Proxy($class);
             $proxy->load();
