@@ -45,7 +45,7 @@ class ParsingCoverageReaderTest extends \PHPUnit_Framework_TestCase
 
     public function testParseClassAddsCoverageInformation()
     {
-        $filename = __DIR__ . '/../../fixture/ExampleTest.php';
+        $filename = __DIR__ . '/../../fixture/NoNamespace/ExampleTest.php';
         $coverageData = array(9 => array('Nonamespace\\ExampleTest::testSomethingVerySpecial'));
 
         $reader = new ParsingCoverageReader();
@@ -93,7 +93,7 @@ class ParsingCoverageReaderTest extends \PHPUnit_Framework_TestCase
         $coverage = new \PHP_CodeCoverage(null, null);
         $coverage->append(
             array(
-                __DIR__ . '/../../fixture/ExampleTest.php' => array(
+                __DIR__ . '/../../fixture/NoNamespace/ExampleTest.php' => array(
                     9 => 1
                 )
             ),

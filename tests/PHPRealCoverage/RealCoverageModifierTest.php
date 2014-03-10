@@ -38,7 +38,7 @@ class RealCoverageModifierTest extends \PHPUnit_Framework_TestCase
         $coverage = new \PHP_CodeCoverage(null, null);
         $coverage->append(
             array(
-                __DIR__ . '/../../fixture/ExampleTest.php' => array(
+                __DIR__ . '/../../fixture/NoNamespace/ExampleTest.php' => array(
                     8 => 1,
                     9 => 1
                 )
