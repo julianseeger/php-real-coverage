@@ -75,10 +75,11 @@ And let php-real-coverage test the quality of your coverage
 
 Roadmap to Version 0.1-Beta
 ===========================
-* add autoloader that proxies the classes on-demand
-* handle non-composer autoloader (must be replaced by a proxy-autoloader)
+* add proxy-autoloader
+* handle non-composer autoloader (wrap existing autoloaders)
 * keep original method signature in the polymorphic proxies (strict support)
 * allow non-namespaced classes
+* support for magic methods
 * rewrite the prototype of RealCoverageRun (the "main" method)
 * pass appropriate arguments to phpunit
 
@@ -96,7 +97,7 @@ Limitations
 > looking forward to extend it for other frameworks, given there is an audience for it
 
 * no support for phpunit 4
-> as soon as phpunit 4 is stable, I will branch the support for 3.x and modify the trunk for phpunit 4
+> as soon as phpunit 4 is stable, I will integrate support for phpunit 3 and 4 simultanuously
 
 * maybe you will run into problems when you abuse reflections or dynamic loading in your project, so php-real-coverage probably won't work for doctrine, etc. But it is basically meant for straight-forward test-driven projects
 
