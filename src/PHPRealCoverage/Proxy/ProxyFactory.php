@@ -5,6 +5,7 @@ namespace PHPRealCoverage\Proxy;
 class ProxyFactory
 {
     private $classes;
+    private $proxies = array();
 
     /**
      * @param ClassMetadata[] $classes
@@ -45,8 +46,12 @@ class ProxyFactory
             throw new UnsupportedClassException();
         }
 
-        $proxy = new Proxy($this->classes[$classname]);
-        $proxy->load();
-        return $proxy;
+        if (!isset($this->proxies[$classname])) {
+            $proxy = new Proxy($this->classes[$classname]);
+            $proxy->load();
+            $this->proxies[$classname] = $proxy;
+        }
+
+        return $this->proxies[$classname];
     }
 }

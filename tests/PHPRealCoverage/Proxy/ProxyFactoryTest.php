@@ -47,6 +47,20 @@ class ProxyFactoryTest extends \PHPUnit_Framework_TestCase
         $class->__PROXYcheckInstance(); //only available for proxies
     }
 
+    public function testFactoryCachesProxiesAndReturnsAlwaysTheSameInstance()
+    {
+        // arrange
+        $class = $this->createFakeClass("ImaginaryNamespace", "ClassA");
+        $factory = new ProxyFactory(array($class));
+
+        // act
+        $proxy1 = $factory->getProxy('\ImaginaryNamespace\ClassA');
+        $proxy2 = $factory->getProxy('\ImaginaryNamespace\ClassA');
+
+        // assert
+        $this->assertSame($proxy1, $proxy2);
+    }
+
     /**
      * @param $namespace
      * @param $classname
