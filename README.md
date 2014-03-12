@@ -82,6 +82,7 @@ Roadmap to Version 0.1-Beta
 * support for magic methods
 * rewrite the prototype of RealCoverageRun (the "main" method)
 * pass appropriate arguments to phpunit
+* support bootstrapping (like "--bootstrap" in phpunit)
 
 Roadmap to Version 1.0
 ======================
