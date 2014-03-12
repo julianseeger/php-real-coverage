@@ -39,6 +39,7 @@ class CoveredClass implements ClassMetadata
 
     /**
      * @param integer $lineNumber
+     * @param \PHPRealCoverage\Proxy\Line $line
      */
     public function addLine($lineNumber, Line $line)
     {
