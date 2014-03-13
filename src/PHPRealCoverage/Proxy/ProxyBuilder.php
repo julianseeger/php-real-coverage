@@ -59,7 +59,8 @@ class ProxyBuilder
     {
         $proxyContent = "
         namespace $this->namespace;
-        class $this->className extends $this->parentClass {
+        class $this->className extends $this->parentClass implements \\PHPRealCoverage\\Proxy\\Proxy
+        {
             private static \$instanceClass = '$this->parentClass';
             private \$instance;
             private \$constructorArguments;

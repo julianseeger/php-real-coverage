@@ -17,6 +17,7 @@ class ProxyBuilderTest extends \PHPUnit_Framework_TestCase
 
         $proxy = new SomeBaseClass();
         $this->assertInstanceOf('\PHPRealCoverage\Proxy\SomeBaseClass', $proxy);
+        $this->assertInstanceOf('\PHPRealCoverage\Proxy\Proxy', $proxy);
         $this->assertTrue($proxy->returnTrue());
 
         if (!class_exists('PHPRealCoverage\\Proxy\\SomeExchangedClass')) {
