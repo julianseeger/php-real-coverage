@@ -5,7 +5,7 @@ namespace PHPRealCoverage;
 use PHPRealCoverage\Mutator\MutationGenerator;
 use PHPRealCoverage\Mutator\Mutator;
 use PHPRealCoverage\Proxy\ClassMetadata;
-use PHPRealCoverage\Proxy\Proxy;
+use PHPRealCoverage\Proxy\ProxyFactory;
 use PHPRealCoverage\TestRunner\MultirunTestCommand;
 use PHPRealCoverage\TestRunner\PHPUnitRunner;
 
@@ -20,6 +20,8 @@ class RealCoverageRun
         $testRunner = new PHPUnitRunner(new MultirunTestCommand(), array('tests', 'tests'));
         $writer = new RealCoverageModifier($report);
 
+        $proxyFactory = new ProxyFactory($classes);
+
         $classCounter = 0;
         /** @var ClassMetadata $class */
         foreach ($classes as $class) {
@@ -27,8 +29,7 @@ class RealCoverageRun
                 continue;
             }
             echo "\n" . (int)(++$classCounter * 100 / count($classes)) . "%: Processing " . $class->getName() . "\n";
-            $proxy = new Proxy($class);
-            $proxy->load();
+            $proxy = $proxyFactory->getProxy($class);
             $tester = new ProxiedMutationTester($proxy, $class, $testRunner);
             if (!$tester->isValid()) {
                 throw new \Exception("Tester did not reach a valid state before mutation");

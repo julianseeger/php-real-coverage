@@ -29,7 +29,7 @@ class ProxyFactoryTest extends \PHPUnit_Framework_TestCase
     public function testGetProxyThrowsAnExceptionIfClassIsNotSupported()
     {
         $factory = new ProxyFactory(array());
-        $factory->getProxy('\Not\Existing');
+        $factory->getProxyForName('\Not\Existing');
     }
 
     public function testGetProxyCreatesProxy()
@@ -39,11 +39,26 @@ class ProxyFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new ProxyFactory(array($class));
 
         // act
-        $proxy = $factory->getProxy('\ImaginaryNamespace\SupportedClass');
+        $proxy = $factory->getProxyForName('\ImaginaryNamespace\SupportedClass');
 
         // assert
         $this->assertInstanceOf('PHPRealCoverage\Proxy\Proxy', $proxy);
         $class = new \ImaginaryNamespace\SupportedClass();
+        $class->__PROXYcheckInstance(); //only available for proxies
+    }
+
+    public function testGetProxyAcceptsClass()
+    {
+        // arrange
+        $class = $this->createFakeClass("ImaginaryNamespace", "AnotherSupportedClass");
+        $factory = new ProxyFactory(array($class));
+
+        // act
+        $proxy = $factory->getProxy($class);
+
+        // assert
+        $this->assertInstanceOf('PHPRealCoverage\Proxy\Proxy', $proxy);
+        $class = new \ImaginaryNamespace\AnotherSupportedClass();
         $class->__PROXYcheckInstance(); //only available for proxies
     }
 
@@ -54,8 +69,8 @@ class ProxyFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new ProxyFactory(array($class));
 
         // act
-        $proxy1 = $factory->getProxy('\ImaginaryNamespace\ClassA');
-        $proxy2 = $factory->getProxy('\ImaginaryNamespace\ClassA');
+        $proxy1 = $factory->getProxyForName('\ImaginaryNamespace\ClassA');
+        $proxy2 = $factory->getProxyForName('\ImaginaryNamespace\ClassA');
 
         // assert
         $this->assertSame($proxy1, $proxy2);

@@ -40,7 +40,7 @@ class ProxyFactory
         return '\\' . $class->getNamespace() . '\\' . $class->getName();
     }
 
-    public function getProxy($classname)
+    public function getProxyForName($classname)
     {
         if (!$this->supports($classname)) {
             throw new UnsupportedClassException();
@@ -53,5 +53,10 @@ class ProxyFactory
         }
 
         return $this->proxies[$classname];
+    }
+
+    public function getProxy(ClassMetadata $class)
+    {
+        return $this->getProxyForName($this->getFullQualifiedClassName($class));
     }
 }
