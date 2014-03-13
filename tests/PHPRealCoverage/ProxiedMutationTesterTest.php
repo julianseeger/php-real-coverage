@@ -7,7 +7,7 @@ class ProxiedMutationTesterTest extends \PHPUnit_Framework_TestCase
     public function testTesterLoadsClassIntoProxy()
     {
         $class = $this->getMockForAbstractClass('PHPRealCoverage\Proxy\ClassMetadata');
-        $proxy = $this->getMockBuilder('PHPRealCoverage\Proxy\Proxy')
+        $proxy = $this->getMockBuilder('PHPRealCoverage\Proxy\ProxyAccessor')
             ->disableOriginalConstructor()
             ->getMock();
         $proxy->expects($this->at(0))->method('loadClass')->with($class)->will($this->returnValue(true));
@@ -37,7 +37,7 @@ class ProxiedMutationTesterTest extends \PHPUnit_Framework_TestCase
     public function testTesterExecutesTests($result)
     {
         $class = $this->getMockForAbstractClass('PHPRealCoverage\Proxy\ClassMetadata');
-        $proxy = $this->getMockBuilder('PHPRealCoverage\Proxy\Proxy')
+        $proxy = $this->getMockBuilder('PHPRealCoverage\Proxy\ProxyAccessor')
             ->disableOriginalConstructor()
             ->getMock();
         $proxy->expects($this->any())->method('loadClass')->will($this->returnValue(true));

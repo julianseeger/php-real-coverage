@@ -7,7 +7,7 @@ use PHPRealCoverage\Parser\Model\CoveredClass;
 use PHPRealCoverage\Parser\Model\CoveredLine;
 use PHPRealCoverage\Parser\Model\DynamicClassnameCoveredClass;
 
-class ProxyTest extends \PHPUnit_Framework_TestCase
+class ProxyAccessorTest extends \PHPUnit_Framework_TestCase
 {
     public function testProxyLoadsTheInitialBaseClass()
     {
@@ -32,7 +32,7 @@ class ProxyTest extends \PHPUnit_Framework_TestCase
         $exampleClass->addLine(5, $line5);
 
         //act
-        $proxy = new Proxy($exampleClass);
+        $proxy = new ProxyAccessor($exampleClass);
         $proxy->load();
         $instance = new \SomeNamespace\ClassA();
     }
@@ -59,7 +59,7 @@ class ClassA {
         $class2 = $parser->parseString($behavior2);
 
         // act
-        $proxy = new Proxy($class1);
+        $proxy = new ProxyAccessor($class1);
         $proxy->load();
         $name = "\\ProxyTest\\ClassA";
         $instance = new $name();
@@ -77,7 +77,7 @@ class ClassA {
         $class->setName("MyName");
         $class->addLine(0, new CoveredLine("THIS IS A PARSE ERROR!"));
 
-        $proxy = new Proxy($class);
+        $proxy = new ProxyAccessor($class);
         $this->assertFalse($proxy->loadClass($class));
     }
 
@@ -93,7 +93,7 @@ class ClassA {
         $class->addLine(1, $line1);
         $class->addLine(2, new CoveredLine("}"));
 
-        $proxy = new Proxy($class);
+        $proxy = new ProxyAccessor($class);
         $proxy->load();
         $this->assertTrue($proxy->loadClass($class));
     }
@@ -120,7 +120,7 @@ class ClassA {
         $input->setNamespace($namespace);
         $input->setName($name);
 
-        $proxy = new Proxy($input);
+        $proxy = new ProxyAccessor($input);
         $this->assertEquals($expected, $proxy->getCanonicalClassName($input));
     }
 }

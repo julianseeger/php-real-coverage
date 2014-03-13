@@ -47,7 +47,7 @@ class ProxyFactory
         }
 
         if (!isset($this->proxies[$classname])) {
-            $proxy = new Proxy($this->classes[$classname]);
+            $proxy = new ProxyAccessor($this->classes[$classname]);
             $proxy->load();
             $this->proxies[$classname] = $proxy;
         }
@@ -57,7 +57,7 @@ class ProxyFactory
 
     /**
      * @param ClassMetadata $class
-     * @return Proxy
+     * @return ProxyAccessor
      */
     public function getProxy(ClassMetadata $class)
     {

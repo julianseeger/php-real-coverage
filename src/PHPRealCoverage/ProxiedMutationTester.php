@@ -4,13 +4,13 @@ namespace PHPRealCoverage;
 
 use PHPRealCoverage\Mutator\MutationTester;
 use PHPRealCoverage\Proxy\ClassMetadata;
-use PHPRealCoverage\Proxy\Proxy;
+use PHPRealCoverage\Proxy\ProxyAccessor;
 use PHPRealCoverage\TestRunner\PHPUnitRunner;
 
 class ProxiedMutationTester implements MutationTester
 {
     /**
-     * @var Proxy
+     * @var ProxyAccessor
      */
     private $proxy;
     /**
@@ -22,7 +22,7 @@ class ProxiedMutationTester implements MutationTester
      */
     private $runner;
 
-    public function __construct(Proxy $proxy, ClassMetadata $class, PHPUnitRunner $runner)
+    public function __construct(ProxyAccessor $proxy, ClassMetadata $class, PHPUnitRunner $runner)
     {
         $this->class = $class;
         $this->proxy = $proxy;

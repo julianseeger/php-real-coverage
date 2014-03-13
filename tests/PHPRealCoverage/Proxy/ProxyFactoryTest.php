@@ -42,7 +42,7 @@ class ProxyFactoryTest extends \PHPUnit_Framework_TestCase
         $proxy = $factory->getProxyForName('\ImaginaryNamespace\SupportedClass');
 
         // assert
-        $this->assertInstanceOf('PHPRealCoverage\Proxy\Proxy', $proxy);
+        $this->assertInstanceOf('PHPRealCoverage\Proxy\ProxyAccessor', $proxy);
         $class = new \ImaginaryNamespace\SupportedClass();
         $class->__PROXYcheckInstance(); //only available for proxies
     }
@@ -57,7 +57,7 @@ class ProxyFactoryTest extends \PHPUnit_Framework_TestCase
         $proxy = $factory->getProxy($class);
 
         // assert
-        $this->assertInstanceOf('PHPRealCoverage\Proxy\Proxy', $proxy);
+        $this->assertInstanceOf('PHPRealCoverage\Proxy\ProxyAccessor', $proxy);
         $class = new \ImaginaryNamespace\AnotherSupportedClass();
         $class->__PROXYcheckInstance(); //only available for proxies
     }
