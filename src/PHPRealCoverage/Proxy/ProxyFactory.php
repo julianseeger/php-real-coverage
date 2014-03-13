@@ -43,7 +43,7 @@ class ProxyFactory
     public function getProxyForName($classname)
     {
         if (!$this->supports($classname)) {
-            throw new UnsupportedClassException();
+            throw new UnsupportedClassException("Class " . $classname . " not found");
         }
 
         if (!isset($this->proxies[$classname])) {
