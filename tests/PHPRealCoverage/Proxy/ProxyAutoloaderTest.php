@@ -4,6 +4,9 @@ namespace PHPRealCoverage\Proxy;
 
 class ProxyAutoloaderTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var ProxyAutoloader
+     */
     private $autoloader;
 
     public function testRegisterAddsAnSplAutoloader()
@@ -33,6 +36,9 @@ class ProxyAutoloaderTest extends \PHPUnit_Framework_TestCase
         $factory = $this->getMockBuilder('\PHPRealCoverage\Proxy\ProxyFactory')
             ->disableOriginalConstructor()
             ->getMock();
+        $factory->expects($this->any())
+            ->method('supports')
+            ->will($this->returnValue(true));
         $factory->expects($this->once())
             ->method('getProxyForName')
             ->with('Namespaced\\Class');
@@ -41,6 +47,14 @@ class ProxyAutoloaderTest extends \PHPUnit_Framework_TestCase
         $this->autoloader = new ProxyAutoloader($factory);
         $this->autoloader->register();
         class_exists('\\Namespaced\\Class');
+    }
+
+    public function testAutoloaderClosureDoesNotThrowExceptions()
+    {
+        $autoloader = new ProxyAutoloader(new ProxyFactory(array()));
+        $closure = $autoloader->getAutoloaderClosure();
+
+        call_user_func($closure, "\\ThisClass\\CanNot\\BeLoaded");
     }
 
     protected function tearDown()

@@ -18,13 +18,7 @@ class ProxyAutoloader
 
     public function register()
     {
-        if (is_null($this->autoloaderClosue)) {
-            $factory = $this->factory;
-            $this->autoloaderClosue = function ($class) use ($factory) {
-                $factory->getProxyForName($class);
-            };
-        }
-        spl_autoload_register($this->autoloaderClosue, true, true);
+        spl_autoload_register($this->getAutoloaderClosure(), true, true);
     }
 
     public function unregister()
@@ -34,6 +28,15 @@ class ProxyAutoloader
 
     public function getAutoloaderClosure()
     {
+        if (is_null($this->autoloaderClosue)) {
+            $factory = $this->factory;
+            $this->autoloaderClosue = function ($class) use ($factory) {
+                if (!$factory->supports($class)) {
+                    return;
+                }
+                $factory->getProxyForName($class);
+            };
+        }
         return $this->autoloaderClosue;
     }
 }
