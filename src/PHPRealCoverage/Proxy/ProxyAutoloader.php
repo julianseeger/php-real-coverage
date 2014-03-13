@@ -24,11 +24,16 @@ class ProxyAutoloader
                 $factory->getProxyForName($class);
             };
         }
-        spl_autoload_register($this->autoloaderClosue);
+        spl_autoload_register($this->autoloaderClosue, true, true);
     }
 
     public function unregister()
     {
         spl_autoload_unregister($this->autoloaderClosue);
+    }
+
+    public function getAutoloaderClosure()
+    {
+        return $this->autoloaderClosue;
     }
 }

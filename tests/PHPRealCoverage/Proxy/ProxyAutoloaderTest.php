@@ -14,6 +14,7 @@ class ProxyAutoloaderTest extends \PHPUnit_Framework_TestCase
         $this->autoloader->register();
 
         $this->assertEquals($autoloaderCount + 1, count(spl_autoload_functions()));
+        $this->assertEquals($this->autoloader->getAutoloaderClosure(), spl_autoload_functions()[0]);
     }
 
     public function testUnregisterRemovesAnSplAutoloader()
