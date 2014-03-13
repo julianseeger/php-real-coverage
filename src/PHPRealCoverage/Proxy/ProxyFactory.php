@@ -55,6 +55,10 @@ class ProxyFactory
         return $this->proxies[$classname];
     }
 
+    /**
+     * @param ClassMetadata $class
+     * @return Proxy
+     */
     public function getProxy(ClassMetadata $class)
     {
         return $this->getProxyForName($this->getFullQualifiedClassName($class));

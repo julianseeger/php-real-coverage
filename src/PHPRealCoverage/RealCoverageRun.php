@@ -3,6 +3,7 @@
 namespace PHPRealCoverage;
 
 use PHPRealCoverage\Mutator\MutationGenerator;
+use PHPRealCoverage\Mutator\MutationTester;
 use PHPRealCoverage\Mutator\Mutator;
 use PHPRealCoverage\Proxy\ClassMetadata;
 use PHPRealCoverage\Proxy\ProxyFactory;
@@ -29,16 +30,13 @@ class RealCoverageRun
                 continue;
             }
             echo "\n" . (int)(++$classCounter * 100 / count($classes)) . "%: Processing " . $class->getName() . "\n";
-            $proxy = $proxyFactory->getProxy($class);
-            $tester = new ProxiedMutationTester($proxy, $class, $testRunner);
-            if (!$tester->isValid()) {
-                throw new \Exception("Tester did not reach a valid state before mutation");
-            }
-            $mutator->testMutations($tester, new MutationGenerator($class));
-            $proxy->loadClass($class);
-            if (!$tester->isValid()) {
-                throw new \Exception("Tester did not reach a valid state after mutation");
-            }
+
+            $this->calculateRealCoverage(
+                $class,
+                $proxyFactory,
+                $testRunner,
+                $mutator
+            );
 
             $writer->write($class);
         }
@@ -46,5 +44,50 @@ class RealCoverageRun
         echo "\n\nWriting coverage report to " . $output . "\n";
         $htmlWriter = new \PHP_CodeCoverage_Report_HTML();
         $htmlWriter->process($report, $output);
+    }
+
+    /**
+     * @param $class
+     * @param $proxyFactory
+     * @param $testRunner
+     * @param $mutator
+     * @throws \Exception
+     */
+    private function calculateRealCoverage(
+        $class,
+        ProxyFactory $proxyFactory,
+        PHPUnitRunner $testRunner,
+        Mutator $mutator
+    ) {
+        $proxy = $proxyFactory->getProxy($class);
+        $tester = new ProxiedMutationTester($proxy, $class, $testRunner);
+        $this->testPrecondition($tester);
+
+        $mutator->testMutations($tester, new MutationGenerator($class));
+        $proxy->loadClass($class);
+
+        $this->testPostcondition($tester);
+    }
+
+    /**
+     * @param $tester
+     * @throws \Exception
+     */
+    private function testPrecondition(MutationTester $tester)
+    {
+        if (!$tester->isValid()) {
+            throw new \Exception("Tester did not reach a valid state before mutation");
+        }
+    }
+
+    /**
+     * @param $tester
+     * @throws \Exception
+     */
+    private function testPostcondition(MutationTester $tester)
+    {
+        if (!$tester->isValid()) {
+            throw new \Exception("Tester did not reach a valid state after mutation");
+        }
     }
 }
