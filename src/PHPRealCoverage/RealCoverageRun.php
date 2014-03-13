@@ -6,6 +6,7 @@ use PHPRealCoverage\Mutator\MutationGenerator;
 use PHPRealCoverage\Mutator\MutationTester;
 use PHPRealCoverage\Mutator\Mutator;
 use PHPRealCoverage\Proxy\ClassMetadata;
+use PHPRealCoverage\Proxy\ProxyAutoloader;
 use PHPRealCoverage\Proxy\ProxyFactory;
 use PHPRealCoverage\TestRunner\MultirunTestCommand;
 use PHPRealCoverage\TestRunner\PHPUnitRunner;
@@ -22,6 +23,8 @@ class RealCoverageRun
         $writer = new RealCoverageModifier($report);
 
         $proxyFactory = new ProxyFactory($classes);
+        $autoloader = new ProxyAutoloader($proxyFactory);
+        $autoloader->register();
 
         $classCounter = 0;
         /** @var ClassMetadata $class */
@@ -40,6 +43,8 @@ class RealCoverageRun
 
             $writer->write($class);
         }
+
+        $autoloader->unregister();
 
         echo "\n\nWriting coverage report to " . $output . "\n";
         $htmlWriter = new \PHP_CodeCoverage_Report_HTML();
